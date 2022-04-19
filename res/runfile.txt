@@ -1,0 +1,45 @@
+===============WELCOME TO DR LUCKY'S GAME================
+Enter total number of players
+2
+Enter 1 to add a human player
+Enter 2 to add a computer player
+1
+Enter name of the player
+ravi
+Enter location of the player
+Kitchen
+Enter 1 to add a human player
+Enter 2 to add a computer player
+2
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+q to exit the game
+2
+Hi ravi, enter the item to be picked  from the current space.
+Sharp Knife
+Item has been picked
+Computer player computer_1 has picked item Billiard Cue.
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+q to exit the game
+3
+Look around of space  Kitchen and it's neighbours are [ Dining Hall,  Parlor,  Wine Cellar].
+Computer player computer_1 has been moved to  Armory.
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+q to exit the game
+3
+Look around of space  Kitchen and it's neighbours are [ Dining Hall,  Parlor,  Wine Cellar].
+======Turns exhausted===============GAME OVER===============Turns exhausted===============GAME OVER=========

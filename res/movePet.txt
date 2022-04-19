@@ -1,0 +1,116 @@
+===============WELCOME TO DR LUCKY'S GAME================
+Enter total number of players
+2
+Enter 1 to add a human player
+Enter 2 to add a computer player
+1
+Enter name of the player
+ravi
+Enter location of the player
+Kitchen
+**Player ravi is added**
+Enter 1 to add a human player
+Enter 2 to add a computer player
+1
+Enter name of the player
+teja
+Enter location of the player
+Billiard Room
+**Player teja is added**
+Target name is  Doctor Lucky, health is 50, current location is 0
+Player name is ravi, and its location is 8,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+5
+Enter the space name to be displayed.
+Armory
+Space is Armory and its items are [Revolver]
+ with no players.
+Pet is present in the current room.
+Its neighbours are [ Billiard Room,  Dining Hall,  Drawing Room]
+Target name is  Doctor Lucky, health is 50, current location is 0
+Player name is ravi, and its location is 8,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+8
+Enter the space name
+Trophy Room
+Pet has been moved
+Target name is  Doctor Lucky, health is 50, current location is 1
+Player name is teja, and its location is 1,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+5
+Enter the space name to be displayed.
+Trophy Room
+Space is Trophy Room and its items are [Duck Decoy, Monkey Hand]
+ with no players.
+Pet is present in the current room.
+Its neighbours are [ Billiard Room,  Dining Hall,  Library,  Tennessee Room]
+Target name is  Doctor Lucky, health is 50, current location is 1
+Player name is teja, and its location is 1,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+8
+Enter the space name
+Green House
+Pet has been moved
+Target name is  Doctor Lucky, health is 50, current location is 2
+Player name is ravi, and its location is 8,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+5
+Enter the space name to be displayed.
+Green House
+Space is Green House and its items are [Trowel, Pinking Shears]
+ with no players.
+Pet is present in the current room.
+Its neighbours are [ Hedge Maze]
+Target name is  Doctor Lucky, health is 50, current location is 2
+Player name is ravi, and its location is 8,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+q
+======GAME QUIT=============GAME OVER=======

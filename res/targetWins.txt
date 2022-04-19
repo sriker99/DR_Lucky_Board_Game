@@ -1,0 +1,98 @@
+===============WELCOME TO DR LUCKY'S GAME================
+Enter total number of players
+2
+Enter 1 to add a human player
+Enter 2 to add a computer player
+1
+Enter name of the player
+ravi
+Enter location of the player
+Carriage House
+**Player ravi is added**
+Enter 1 to add a human player
+Enter 2 to add a computer player
+1
+Enter name of the player
+teja
+Enter location of the player
+Armory
+**Player teja is added**
+Target name is  Doctor Lucky, health is 50, current location is 0
+Player name is ravi, and its location is 2,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+2
+Hi ravi, enter the item to be picked  from the current space.
+Chain Saw
+Item has been picked
+Target name is  Doctor Lucky, health is 50, current location is 1
+Player name is teja, and its location is 0,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+1
+Hi teja, enter the next location to move
+Dining Hall
+Player has been moved to Dining Hall
+Target name is  Doctor Lucky, health is 50, current location is 2
+Player name is ravi, and its location is 2,  carrying items [Chain Saw]
+ with damages 4,  respectively.
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+7
+Enter the item name if you have one else click Enter.
+Chain Saw
+Target is attacked.
+Target name is  Doctor Lucky, health is 46, current location is 3
+Player name is teja, and its location is 3,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+7
+Enter the item name if you have one else click Enter.
+
+Target is attacked.
+Target name is  Doctor Lucky, health is 45, current location is 4
+Player name is ravi, and its location is 2,  carrying items []
+Enter 1 to move the player
+2 to pick item from the space
+3 to look around the player
+4 to display player information
+5 to space information
+6 to get world map
+7 to attack the target
+8 to move pet
+q to exit the game
+3
+Target location is:  Drawing Room
+Space is  Carriage House and its items are Big Red Hammer with damage 4,
+ and its players are [ravi].
+Its neighbours are
+ Winter Garden with items [] with players []
+======Turns exhausted=============<DR LUCKY WON THE GAME>===============GAME OVER=========
