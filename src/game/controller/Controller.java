@@ -1,6 +1,6 @@
 package game.controller;
 
-import game.model.World;
+import game.view.View;
 
 /**
  * This interface is for declaring method signatures that are implemented by Extensible controller.
@@ -12,5 +12,5 @@ public interface Controller {
    *
    * @param w is the world model or interface.
    */
-  public void execute(World w);
+  public void execute(View view);
 }

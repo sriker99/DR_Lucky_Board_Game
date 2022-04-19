@@ -2,6 +2,9 @@ package game.model;
 
 import game.controller.Controller;
 import game.controller.ExtensibleController;
+import game.view.View;
+import game.view.WorldView;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,10 +22,10 @@ public class DriverClass {
     try {
       Readable file = new FileReader(args[0]);
       int numOfTurns = Integer.parseInt(args[1]);
-      Readable input = new InputStreamReader(System.in);
-      Appendable output = System.out;
-      Controller c = new ExtensibleController(input, output);
-      c.execute(new ConcreteWorld(file, new RandomGen(), numOfTurns));
+      World model=new ConcreteWorld(file, new RandomGen(), numOfTurns);
+      Controller c = new ExtensibleController(model);
+      View view=new WorldView("Doctor Lucky");
+      c.execute(view);
     } catch (IOException ioe) {
       System.out.println(ioe.getMessage());
       System.exit(1);
