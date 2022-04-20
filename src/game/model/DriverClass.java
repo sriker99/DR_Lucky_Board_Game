@@ -24,7 +24,7 @@ public class DriverClass {
       int numOfTurns = Integer.parseInt(args[1]);
       World model=new ConcreteWorld(file, new RandomGen(), numOfTurns);
       Controller c = new ExtensibleController(model);
-      View view=new WorldView("Doctor Lucky");
+      View view=new WorldView("Doctor Lucky",model);
       c.execute(view);
     } catch (IOException ioe) {
       System.out.println(ioe.getMessage());

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * It implements space interface with all the necessary parameters like its dimensions and name.
+ * It implements space interface with all the necessary parameters like its
+ * dimensions and name.
  */
 public class SpaceImpl implements Space {
 
@@ -17,8 +18,8 @@ public class SpaceImpl implements Space {
   private List<String> playersInSpace;
 
   /**
-   * This constructor checks for illegal coordinates and throws exception for it and initializes.
-   * the given parameters.
+   * This constructor checks for illegal coordinates and throws exception for it
+   * and initializes. the given parameters.
    *
    * @param upperLeftRow  top left row value
    * @param upperLeftCol  top left column value
@@ -28,7 +29,7 @@ public class SpaceImpl implements Space {
    * @throws IllegalArgumentException if the arguments doesn't meet the standards.
    */
   public SpaceImpl(int upperLeftRow, int upperLeftCol, int lowerRightRow, int lowerRightCol,
-                   String nameOfSpace) throws IllegalArgumentException {
+      String nameOfSpace) throws IllegalArgumentException {
     if ((upperLeftRow >= lowerRightRow) || (upperLeftCol >= lowerRightCol) || upperLeftRow < 0
         || lowerRightRow < 0 || upperLeftCol < 0 || lowerRightCol < 0) {
       throw new IllegalArgumentException("Invalid Coordinates");
@@ -101,7 +102,7 @@ public class SpaceImpl implements Space {
   @Override
   public void addPlayersInSpace(String player) {
     if (player == null || "".equals(player.trim()) || this.playersInSpace.contains(player.trim())) {
-      throw new IllegalArgumentException("Player name is invalid.");
+      throw new IllegalArgumentException("Player name already exsits");
     }
     this.playersInSpace.add(player);
   }

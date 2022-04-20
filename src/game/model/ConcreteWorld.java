@@ -627,4 +627,10 @@ public class ConcreteWorld implements World {
   public String getWinner() {
     return winner;
   }
+
+@Override
+public String[] getSpaces() {
+	String[] spaces=sequence.toArray(new String[sequence.size()]);
+	return spaces;
+}
 }
