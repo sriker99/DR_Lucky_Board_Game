@@ -10,7 +10,7 @@ public interface Controller {
   /**
    * This method implements execute functionality, it is called to the world model.
    *
-   * @param view is the world view or interface.
+   * @param w is the world model or interface.
    */
   public void execute(View view);
 }
