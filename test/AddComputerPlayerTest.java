@@ -22,7 +22,7 @@ public class AddComputerPlayerTest {
 
   @Test
   public void testAddComputerPlayerTest() {
-    WorldController wc = new AddComputerPlayer(log);
+    WorldController wc = new AddComputerPlayer();
     wc.playGame(world);
     StringBuilder sb = new StringBuilder();
     sb.append(String.format("adding computer player ravi in space Dining Hall with 1011\n"));

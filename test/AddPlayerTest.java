@@ -28,7 +28,7 @@ public class AddPlayerTest {
     StringBuffer out = new StringBuffer();
     Reader in = new StringReader("ravi\nKitchen\n");
     Scanner sc = new Scanner(in);
-    WorldController wc = new AddPlayer(sc, out);
+    WorldController wc = new AddPlayer();
     wc.playGame(world);
     StringBuilder sb = new StringBuilder();
     sb.append("adding player ravi in space Kitchen with 1011\n");
