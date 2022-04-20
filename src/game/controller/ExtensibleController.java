@@ -2,6 +2,7 @@ package game.controller;
 import game.model.World;
 import game.view.View;
 
+
 public class ExtensibleController implements Controller, Features{
 	private World model;
 	private View view;
