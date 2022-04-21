@@ -1,4 +1,8 @@
 package game.view.panels;
 
-public class GameScreen {
+import javax.swing.JPanel;
+
+public class GameScreen extends JPanel {
+
+  private static final long serialVersionUID = 1L;
 }
