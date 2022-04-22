@@ -14,4 +14,6 @@ public interface View {
   void changeToPlayerConfigScreen();
 
   void changeToGameScreen();
+
+  void disposeFrame();
 }

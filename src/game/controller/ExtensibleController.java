@@ -3,6 +3,7 @@ package game.controller;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -19,7 +20,6 @@ public class ExtensibleController implements Controller, Features {
   private View view;
   private int playerCount;
   private int maxNoOfTurns;
-  private boolean gameStatus;
   private String filePath;
 
   public ExtensibleController(World model, int numOfTurns, String filePath) {
@@ -35,7 +35,6 @@ public class ExtensibleController implements Controller, Features {
     this.model = model;
     playerCount = 0;
     this.maxNoOfTurns = numOfTurns;
-    this.gameStatus = false;
     this.filePath = filePath;
   }
 
@@ -50,7 +49,9 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void exitProgram() {
-    System.exit(0);
+    view.showSuccessMessage("Game has ended successfully");
+    view.disposeFrame();
+    this.startGame();
   }
 
   @Override
@@ -100,8 +101,8 @@ public class ExtensibleController implements Controller, Features {
       file = new FileReader(this.filePath);
       World model = new ConcreteWorld(file, new RandomGen(), maxNoOfTurns);
       this.model = model;
+      view.disposeFrame();
       View view = new WorldView("Doctor Lucky", model);
-      this.gameStatus = false;
       this.execute(view);
     } catch (FileNotFoundException e) {
       view.showErrorMessage(e.getMessage());
@@ -122,8 +123,37 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void switchToGameScreen() {
-    view.changeToGameScreen();
+    if (playerCount < 2) {
+      view.showErrorMessage("There should be minimum 2 players to start the game");
+    } else {
+      view.changeToGameScreen();
+    }
 
+  }
+
+  @Override
+  public void playGameWithUploadedFile(String filePath) {
+    Readable file;
+    try {
+      file = new FileReader(filePath);
+      World model = new ConcreteWorld(file, new RandomGen(), maxNoOfTurns);
+      this.model = model;
+      view.disposeFrame();
+      View view = new WorldView("Doctor Lucky", model);
+      this.execute(view);
+    } catch (FileNotFoundException e) {
+      view.showErrorMessage(e.getMessage());
+      this.startGame();
+      view.changeToWelcomeScreen();
+    } catch (IllegalArgumentException ie) {
+      view.showErrorMessage("Input file doesnot meet correct standards");
+      this.startGame();
+      view.changeToWelcomeScreen();
+    } catch (InputMismatchException ime) {
+      view.showErrorMessage("Input file doesnot meet correct standards");
+      this.startGame();
+      view.changeToWelcomeScreen();
+    }
   }
 
 }

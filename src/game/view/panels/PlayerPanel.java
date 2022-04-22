@@ -1,5 +1,6 @@
 package game.view.panels;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
@@ -73,6 +74,7 @@ public class PlayerPanel extends JPanel {
     playerType.setMaximumSize(playerType.getPreferredSize());
     humanPlayer.setMaximumSize(humanPlayer.getPreferredSize());
     buttonsPanel.setMaximumSize(buttonsPanel.getPreferredSize());
+
   }
 
   public void setFeatures(Features f) {

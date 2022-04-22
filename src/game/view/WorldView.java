@@ -3,13 +3,16 @@ package game.view;
 import game.view.panels.WelcomeScreen;
 
 import java.awt.CardLayout;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import game.controller.Features;
 import game.model.ReadOnlyWorld;
@@ -60,9 +63,12 @@ public class WorldView extends JFrame implements View {
     cards.add(gameScreen, gameCard);
     this.add(cards);
     setSize(500, 500);
+    setLocation(500, 500);
+    ;
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
+
   }
 
   @Override
@@ -73,6 +79,8 @@ public class WorldView extends JFrame implements View {
     ws.setFeatures(f);
     addPlayers.setFeatures(f);
     menuItem1.addActionListener(l -> f.startGame());
+    menuItem2.addActionListener(l -> this.uploadFile(f));
+    menuItem3.addActionListener(l -> f.exitProgram());
   }
 
   @Override
@@ -98,12 +106,16 @@ public class WorldView extends JFrame implements View {
   public void changeToWelcomeScreen() {
     CardLayout c = (CardLayout) (cards.getLayout());
     c.show(cards, this.welcomeCard);
+    menuItem1.setEnabled(true);
+    menuItem2.setEnabled(true);
   }
 
   @Override
   public void changeToPlayerConfigScreen() {
     CardLayout c = (CardLayout) (cards.getLayout());
     c.show(cards, this.playerConfigurationCard);
+    menuItem1.setEnabled(false);
+    menuItem2.setEnabled(false);
 
   }
 
@@ -111,6 +123,25 @@ public class WorldView extends JFrame implements View {
   public void changeToGameScreen() {
     CardLayout c = (CardLayout) (cards.getLayout());
     c.show(cards, this.gameCard);
+    menuItem1.setEnabled(false);
+    menuItem2.setEnabled(false);
+  }
+
+  private void uploadFile(Features f) {
+    JFileChooser chooser = new JFileChooser();
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT files", "txt");
+    chooser.setFileFilter(filter);
+    int returnVal = chooser.showOpenDialog(getParent());
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+      File file = chooser.getSelectedFile();
+      f.playGameWithUploadedFile(file.getPath());
+    }
+  }
+
+  @Override
+  public void disposeFrame() {
+    this.setVisible(false);
+    this.dispose();
 
   }
 

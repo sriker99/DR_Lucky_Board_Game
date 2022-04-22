@@ -24,9 +24,10 @@ public class WelcomeScreen extends JPanel {
 
   public WelcomeScreen() {
     this.setLayout(new BorderLayout());
-    ImageIcon icon = new ImageIcon("res/Welcome.jpg");
     JLabel thumb = new JLabel();
-    thumb.setIcon(icon);
+    thumb.setIcon(new ImageIcon(new ImageIcon("res/Splash.jpg").getImage().getScaledInstance(500,
+        500, Image.SCALE_DEFAULT)));
+
     this.add(thumb, BorderLayout.CENTER);
     startGame = new JButton("Play");
     startGame.setBounds(100, 100, 100, 80);

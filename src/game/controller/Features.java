@@ -13,4 +13,6 @@ public interface Features {
   void switchToPlayerConfigScreen();
 
   void switchToGameScreen();
+
+  void playGameWithUploadedFile(String filePath);
 }
