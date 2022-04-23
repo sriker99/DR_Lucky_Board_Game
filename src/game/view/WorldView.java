@@ -203,4 +203,11 @@ public class WorldView extends JFrame implements View {
     this.setVisible(false);
     this.dispose();
   }
+
+  @Override
+  public void updateClues() {
+    gamePanel.updateClues();
+  }
+
+
 }

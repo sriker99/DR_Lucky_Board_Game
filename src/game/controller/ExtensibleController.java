@@ -220,5 +220,6 @@ public class ExtensibleController implements Controller, Features {
   public void displayLookAround() {
     WorldController wc = new LookAround();
     wc.playGame(model, view);
+    view.updateClues();
   }
 }

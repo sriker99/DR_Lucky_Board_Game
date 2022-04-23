@@ -19,6 +19,8 @@ public class GameScreen extends JPanel {
   private JPanel sidePanel;
   private JPanel responsePanel;
   private JPanel rulesPanel;
+  private ReadOnlyWorld world;
+  private JLabel clues;
 
   /**
    * This is a constructs initialises the game panel.
@@ -36,7 +38,7 @@ public class GameScreen extends JPanel {
     JLabel thumb = new JLabel();
     thumb.setIcon(icon);
     String description = world.displayClues();
-    JLabel clues = new JLabel(description);
+    clues = new JLabel(description);
     JLabel rules = new JLabel("<html>Enter 1 to move the player<br/>" +
         "2 to pick item from the space<br/>" +
         "3 to look around the player<br/>" +
@@ -45,6 +47,7 @@ public class GameScreen extends JPanel {
         "6 to get world map<br/>" +
         "7 to attack the target<br/>" +
         "8 to move pet</html>");
+    this.world=world;
     graphPanel = new JPanel();
     cluesPanel = new JPanel();
     responsePanel = new JPanel();
@@ -59,6 +62,10 @@ public class GameScreen extends JPanel {
     this.add(sidePanel);
   }
 
+  public void updateClues(){
+    String temp=world.displayClues();
+    clues.setText(temp);
+  }
 
   @Override
   public void paintComponent(Graphics g) {

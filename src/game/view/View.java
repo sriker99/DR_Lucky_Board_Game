@@ -62,4 +62,8 @@ public interface View {
    */
   void disposeFrame();
 
+  /**
+   * Updates clues after every turn.
+   */
+  void updateClues();
 }
