@@ -40,7 +40,7 @@ public class WorldView extends JFrame implements View {
   private JComboBox itemOptions;
   private JComboBox spaceItemOptions;
   private JPanel cards;
-  private GameScreen gameScreen;
+
   private final String welcomeCard = "WELCOMECARD";
   private final String playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
   private final String gameCard = "GAMECARD";
@@ -70,13 +70,11 @@ public class WorldView extends JFrame implements View {
     cards = new JPanel(new CardLayout());
     ws = new WelcomeScreen();
     addPlayers = new PlayerPanel(this.world);
-    gameScreen = new GameScreen();
+    gamePanel=new GameScreen(this.world);
     cards.add(ws, welcomeCard);
     cards.add(addPlayers, playerConfigurationCard);
-    cards.add(gameScreen, gameCard);
+    cards.add(gamePanel, gameCard);
     this.add(cards);
-    gamePanel=new GameScreen(this.world);
-    this.add(gamePanel);
     setSize(500, 500);
     setLocation(500, 500);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
