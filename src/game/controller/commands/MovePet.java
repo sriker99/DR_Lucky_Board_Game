@@ -3,48 +3,32 @@ package game.controller.commands;
 import game.controller.WorldController;
 import game.model.World;
 import game.view.View;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * This command class implements world controller interface and moves the player to next space given
  * by calling world object.
  */
 public class MovePet implements WorldController {
-  private Scanner scan;
-  private Appendable out;
+  private String location;
 
   /**
    * This constructor initializes move pet object with the given inputs.
    *
-   * @param scan gets input from the user.
-   * @param out  displays output.
+   * @param location where the pet to be moved.
    */
-  public MovePet(Scanner scan, Appendable out) {
-    if (scan == null || out == null) {
-      throw new IllegalArgumentException("Scanner and Appendable shouldn't be null.");
+  public MovePet(String location) {
+    if (location == null || "".equals(location.trim())) {
+      throw new IllegalArgumentException("Location shouldn't be empty.");
     }
-    this.scan = scan;
-    this.out = out;
+    this.location = location;
   }
 
   @Override
   public void playGame(World w, View view) throws IllegalArgumentException {
-    try {
-      if (w == null) {
-        throw new IllegalArgumentException("Model cannot be null");
-      }
-      while (true) {
-        try {
-          w.movePet(scan.nextLine());
-          out.append(String.format("Pet has been moved \n"));
-          break;
-        } catch (IllegalArgumentException ie) {
-          out.append(ie.getMessage() + "\n" + "Enter the space name again\n");
-        }
-      }
-    } catch (IOException ioe) {
-      throw new IllegalStateException(ioe.getMessage());
+    if (w == null || view == null) {
+      throw new IllegalArgumentException("Model and view cannot be null");
     }
+    w.movePet(location);
+    view.showSuccessMessage("Pet Status", "Pet has been moved.");
   }
 }

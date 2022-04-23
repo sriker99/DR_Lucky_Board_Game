@@ -33,8 +33,8 @@ public class MovePlayer implements WorldController {
   @Override
   public void playGame(World w, View view) {
     try {
-      if (w == null) {
-        throw new IllegalArgumentException("Model cannot be null");
+      if (w == null || view == null) {
+        throw new IllegalArgumentException("Model and view cannot be null");
       }
       while (true) {
         try {

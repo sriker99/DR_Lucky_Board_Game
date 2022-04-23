@@ -1,10 +1,8 @@
 package game.view.panels;
 
-import java.awt.Component;
-import java.awt.Dimension;
+import game.controller.Features;
+import game.model.ReadOnlyWorld;
 import java.awt.Font;
-
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,9 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import game.controller.Features;
-import game.model.ReadOnlyWorld;
-
+/**
+ * This class represents player panel in the world where players are added.
+ */
 public class PlayerPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
@@ -27,7 +25,7 @@ public class PlayerPanel extends JPanel {
   private JPanel buttonsPanel;
   private JLabel playerTypeLabel;
   private JComboBox<String> playerTypeComboBox;
-  private String[] playerTypeComboBoxItems = { humanPlayerPanel, computerPlayerPanel };
+  private String[] playerTypeComboBoxItems = {humanPlayerPanel, computerPlayerPanel};
   private JLabel playerNameLabel;
   private JLabel playerLocationLabel;
   private JTextArea playerNameTextArea;
@@ -35,6 +33,11 @@ public class PlayerPanel extends JPanel {
   private JButton addPlayer;
   private JButton startGame;
 
+  /**
+   * This constructor initialises player panel with all the values.
+   *
+   * @param world is the readonly world object.
+   */
   public PlayerPanel(ReadOnlyWorld world) {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
@@ -77,7 +80,15 @@ public class PlayerPanel extends JPanel {
 
   }
 
+  /**
+   * This method implements adding players to the game.
+   *
+   * @param f is the features object.
+   */
   public void setFeatures(Features f) {
+    if (f == null) {
+      throw new IllegalArgumentException("Features object shouldn't be null.");
+    }
     playerTypeComboBox.addItemListener(l -> this.switchComputerToHumanScreen());
     addPlayer
         .addActionListener(l -> f.addPlayer(String.valueOf(playerTypeComboBox.getSelectedItem()),
@@ -86,6 +97,9 @@ public class PlayerPanel extends JPanel {
     startGame.addActionListener(l -> f.switchToGameScreen());
   }
 
+  /**
+   * This method implements switching the screen between human parameters and computer parameters.
+   */
   private void switchComputerToHumanScreen() {
     String playerType = String.valueOf(playerTypeComboBox.getSelectedItem());
     if (playerType.equals(humanPlayerPanel)) {

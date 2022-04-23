@@ -1,23 +1,24 @@
 package game.controller;
 
-import game.controller.commands.Attack;
-import game.controller.commands.LookAround;
-import game.controller.commands.PickItem;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.function.Function;
-
 import game.controller.commands.AddComputerPlayer;
 import game.controller.commands.AddPlayer;
-import game.model.World;
-import game.view.View;
+import game.controller.commands.Attack;
+import game.controller.commands.LookAround;
+import game.controller.commands.MovePet;
+import game.controller.commands.PickItem;
 import game.model.ConcreteWorld;
 import game.model.RandomGen;
+import game.model.World;
+import game.view.View;
 import game.view.WorldView;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.InputMismatchException;
 
+/**
+ * This class represents the controller, it is responsible for processing inputs by passing to model
+ * and telling view what to display.
+ */
 public class ExtensibleController implements Controller, Features {
   private World model;
   private View view;
@@ -25,6 +26,13 @@ public class ExtensibleController implements Controller, Features {
   private int maxNoOfTurns;
   private String filePath;
 
+  /**
+   * This constructor initializes the controller with the given the model and world specification.
+   *
+   * @param model      is world object.
+   * @param numOfTurns turns to be played.
+   * @param filePath   is location of the specification of world.
+   */
   public ExtensibleController(World model, int numOfTurns, String filePath) {
     if (model == null) {
       throw new IllegalArgumentException("World Object cannot be null");
@@ -54,7 +62,7 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void exitProgram() {
-    view.showSuccessMessage("Game has ended successfully");
+    view.showSuccessMessage("Game Status", "Game has ended successfully");
     view.disposeFrame();
     this.startGame();
   }
@@ -74,22 +82,22 @@ public class ExtensibleController implements Controller, Features {
     if (playerType.equals("COMPUTER")) {
       try {
         WorldController wc = new AddComputerPlayer();
-        wc.playGame(model,view);
+        wc.playGame(model, view);
         playerCount += 1;
         if (playerCount == 10) {
           view.changeToGameScreen();
         }
-        view.showSuccessMessage("Computer player is added to the world");
+        view.showSuccessMessage("Player Status", "Computer player is added to the world");
       } catch (IllegalArgumentException ie) {
         view.showErrorMessage(ie.getMessage());
       }
     } else if (playerType.equals("HUMAN")) {
       try {
         WorldController wc = new AddPlayer(playerName, playerLocation);
-        wc.playGame(model,view);
+        wc.playGame(model, view);
         playerCount += 1;
         String result = String.format("%s player is added to the world", playerName);
-        view.showSuccessMessage(result);
+        view.showSuccessMessage("Player Status", result);
         if (playerCount == 10) {
           view.changeToGameScreen();
         }
@@ -138,6 +146,9 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void playGameWithUploadedFile(String filePath) {
+    if (filePath == null || "".equals(filePath.trim())) {
+      view.showErrorMessage("File path shouldn't be empty.");
+    }
     Readable file;
     try {
       file = new FileReader(filePath);
@@ -151,11 +162,11 @@ public class ExtensibleController implements Controller, Features {
       this.startGame();
       view.changeToWelcomeScreen();
     } catch (IllegalArgumentException ie) {
-      view.showErrorMessage("Input file doesnot meet correct standards");
+      view.showErrorMessage("Input file does not meet correct standards");
       this.startGame();
       view.changeToWelcomeScreen();
     } catch (InputMismatchException ime) {
-      view.showErrorMessage("Input file doesnot meet correct standards");
+      view.showErrorMessage("Input file does not meet correct standards");
       this.startGame();
       view.changeToWelcomeScreen();
     }
@@ -163,28 +174,52 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void attack(String item) {
-    WorldController wc= new Attack(item);
-    wc.playGame(model,view);
+    if (item == null || "".equals(item.trim())) {
+      throw new IllegalArgumentException("Item shouldn't be empty");
+    }
+    WorldController wc = new Attack(item);
+    wc.playGame(model, view);
   }
 
-  @Override
-  public void displayAttackItemDialog(){
-    view.showItemsDialog();
-  }
 
   @Override
   public void pick(String item) {
-    WorldController wc= new PickItem(item);
-    wc.playGame(model,view);
+    if (item == null || "".equals(item.trim())) {
+      throw new IllegalArgumentException("Item shouldn't be empty");
+    }
+    WorldController wc = new PickItem(item);
+    wc.playGame(model, view);
   }
 
   @Override
-  public void displayPickItemDialog(){
-    view.showPickItemsDialog();
+  public void movePet(String location) {
+    if (location == null || "".equals(location.trim())) {
+      throw new IllegalArgumentException("location shouldn't be empty");
+    }
+    WorldController wc = new MovePet(location);
+    wc.playGame(model, view);
   }
+
+  @Override
+  public void displayItemsDialog(String title, String[] items) {
+    if (title == null || "".equals(title.trim()) || items == null) {
+      throw new IllegalArgumentException("Title and items shouldn't be empty");
+    }
+    view.showItemsDialog(title, items);
+  }
+
+  @Override
+  public void displayErrorDialog(String msg) {
+    if (msg == null || "".equals(msg.trim())) {
+      throw new IllegalArgumentException("location shouldn't be empty");
+    }
+    view.showErrorMessage(msg);
+  }
+
   @Override
   public void displayLookAround() {
-    WorldController wc= new LookAround();
-    wc.playGame(model,view);
+    WorldController wc = new LookAround();
+    wc.playGame(model, view);
+    view.updateClues();
   }
 }

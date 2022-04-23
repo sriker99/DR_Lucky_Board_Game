@@ -3,7 +3,6 @@ package game.controller.commands;
 import game.controller.WorldController;
 import game.model.World;
 import game.view.View;
-import java.io.IOException;
 
 /**
  * This command class implements world controller interface and calls the lookaround method from
@@ -12,20 +11,20 @@ import java.io.IOException;
 public class LookAround implements WorldController {
   private String response;
 
-  public LookAround(){
-    this.response="";
+  /**
+   * This constructor initialises response of look around.
+   */
+  public LookAround() {
+    this.response = "";
   }
 
   @Override
   public void playGame(World w, View view) {
-    if (w == null) {
-      throw new IllegalArgumentException("model cannot be null");
+    if (w == null || view == null) {
+      throw new IllegalArgumentException("Model and view cannot be null");
     }
-     response= w.lookAround();
-    view.showMessageDialog("Look Around",response);
+    response = w.lookAround();
+    view.showSuccessMessage("Look Around", response);
   }
 
-  public String getResponse(){
-    return response;
-  }
 }

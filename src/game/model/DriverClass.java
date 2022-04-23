@@ -4,10 +4,8 @@ import game.controller.Controller;
 import game.controller.ExtensibleController;
 import game.view.View;
 import game.view.WorldView;
-
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * It takes the input from the user and acts as driver class.

@@ -1,18 +1,12 @@
 package game.view.panels;
 
+import game.controller.Features;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import game.controller.Features;
 
 /**
  * This class implements the welcome screen of the game using JPanel.
@@ -22,6 +16,9 @@ public class WelcomeScreen extends JPanel {
   private static final long serialVersionUID = 1L;
   private JButton startGame;
 
+  /**
+   * This constructor initializes the welcome screen panel.
+   */
   public WelcomeScreen() {
     this.setLayout(new BorderLayout());
     JLabel thumb = new JLabel();
@@ -34,7 +31,15 @@ public class WelcomeScreen extends JPanel {
     this.add(startGame, BorderLayout.PAGE_END);
   }
 
+  /**
+   * This method implements features present in the welcome screen.
+   *
+   * @param f is the features object.
+   */
   public void setFeatures(Features f) {
+    if (f == null) {
+      throw new IllegalArgumentException("Features object shouldn't be null.");
+    }
     startGame.addActionListener(l -> f.switchToPlayerConfigScreen());
   }
 }

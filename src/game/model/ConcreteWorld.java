@@ -337,7 +337,7 @@ public class ConcreteWorld implements World {
   public void attack(String itemName) {
     Player currentPlayer = playersList.get(currentPlayerIndex % playerCount);
     boolean itemPresent = currentPlayer.getItems().contains(itemName.trim());
-    if (!(itemName == null || "".equals(itemName.trim()) || itemPresent)) {
+    if ((itemName == null || "".equals(itemName.trim()))) {
       throw new IllegalArgumentException("Item name is invalid.");
     }
     numOfTurns--;
@@ -361,7 +361,7 @@ public class ConcreteWorld implements World {
       movePetDfs();
       throw new IllegalStateException("Can't attack while other players are watching.\n");
     }
-    if (itemName == null || "".equals(itemName.trim())) {
+    if ("Poke".equals(itemName.trim())) {
       moveTarget();
       target.decreaseHealthBy(1);
       currentPlayerIndex++;
@@ -678,18 +678,18 @@ public class ConcreteWorld implements World {
 
   @Override
   public String[] getPlayerItems() {
-//    Player p= playersList.get(currentPlayerIndex);
-//    String[] items= p.getItems().toArray(new String[0]);
-    String[] temp = { "Knife", "Gun" };
-    return temp;
+    Player p = playersList.get(this.currentPlayerIndex % playerCount);
+    List<String> temp = p.getItems();
+    temp.add("Poke");
+    String[] items = temp.toArray(new String[0]);
+    return items;
   }
 
   @Override
   public String[] getSpaceItems() {
-//    Player p= playersList.get(currentPlayerIndex);
-//    String[] items= spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
-    String[] temp = { "Knife", "Gun" };
-    return temp;
+    Player p = playersList.get(this.currentPlayerIndex % playerCount);
+    String[] items = spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
+    return items;
   }
 
 }
