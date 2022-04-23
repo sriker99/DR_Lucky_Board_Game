@@ -3,7 +3,7 @@ package game.model;
 /**
  * This interfaces declares method signatures for constructing a World.
  */
-public interface World extends ReadOnlyWorld{
+public interface World extends ReadOnlyWorld {
 
   /**
    * This method creates a world from the given parameters.

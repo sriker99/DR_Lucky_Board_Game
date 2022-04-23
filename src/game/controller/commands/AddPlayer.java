@@ -3,8 +3,6 @@ package game.controller.commands;
 import game.controller.WorldController;
 import game.model.World;
 import game.view.View;
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * This command class implements WorldController interface and adds a player to
@@ -16,7 +14,8 @@ public class AddPlayer implements WorldController {
 
   /**
    * This constructor initialises the add player command with the given description of the player.
-   * @param name of the player.
+   *
+   * @param name     of the player.
    * @param location of the player.
    */
   public AddPlayer(String name, String location) {
@@ -32,7 +31,7 @@ public class AddPlayer implements WorldController {
 
   @Override
   public void playGame(World w, View view) throws IllegalArgumentException {
-    if (w == null|| view == null) {
+    if (w == null || view == null) {
       throw new IllegalArgumentException("Model and view cannot be null");
     }
     w.addPlayer(name, location);

@@ -190,7 +190,7 @@ public class ConcreteWorld implements World {
   public String displayClues() {
     StringBuffer info = new StringBuffer();
     info.append(target.toString());
-    if(playerCount>0) {
+    if (playerCount > 0) {
       info.append(playersList.get(currentPlayerIndex % playerCount).toString());
       boolean flag = playersList.get(currentPlayerIndex % playerCount).getItems().size() > 0;
       if (flag) {
@@ -630,25 +630,25 @@ public class ConcreteWorld implements World {
     return winner;
   }
 
-@Override
-public String[] getSpaces() {
-	String[] spaces=sequence.toArray(new String[sequence.size()]);
-	return spaces;
-}
+  @Override
+  public String[] getSpaces() {
+    String[] spaces = sequence.toArray(new String[sequence.size()]);
+    return spaces;
+  }
 
   @Override
   public String[] getPlayerItems() {
-    Player p= playersList.get(this.currentPlayerIndex%playerCount);
-    List<String> temp=p.getItems();
+    Player p = playersList.get(this.currentPlayerIndex % playerCount);
+    List<String> temp = p.getItems();
     temp.add("Poke");
-    String[] items= temp.toArray(new String[0]);
+    String[] items = temp.toArray(new String[0]);
     return items;
   }
 
   @Override
-  public String[] getSpaceItems(){
-    Player p= playersList.get(this.currentPlayerIndex%playerCount);
-    String[] items= spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
+  public String[] getSpaceItems() {
+    Player p = playersList.get(this.currentPlayerIndex % playerCount);
+    String[] items = spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
     return items;
   }
 }

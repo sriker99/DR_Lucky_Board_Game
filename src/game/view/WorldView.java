@@ -1,27 +1,23 @@
 package game.view;
 
-import game.view.panels.WelcomeScreen;
+import game.controller.Features;
+import game.model.ReadOnlyWorld;
 import game.view.panels.GameScreen;
+import game.view.panels.PlayerPanel;
+import game.view.panels.WelcomeScreen;
+import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import java.awt.CardLayout;
-import java.io.File;
-
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-
-import javax.swing.JFileChooser;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JComboBox;
-
-import game.controller.Features;
-import game.model.ReadOnlyWorld;
-import game.view.panels.PlayerPanel;
 
 /**
  * This class represents the game with all the implementations of the functionalities in the view
@@ -30,6 +26,9 @@ import game.view.panels.PlayerPanel;
 public class WorldView extends JFrame implements View {
 
   private static final long serialVersionUID = 1L;
+  private final String welcomeCard = "WELCOMECARD";
+  private final String playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
+  private final String gameCard = "GAMECARD";
   private PlayerPanel addPlayers;
   private GameScreen gamePanel;
   private ReadOnlyWorld world;
@@ -42,14 +41,11 @@ public class WorldView extends JFrame implements View {
   private JComboBox itemsCombo;
   private JPanel cards;
 
-  private final String welcomeCard = "WELCOMECARD";
-  private final String playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
-  private final String gameCard = "GAMECARD";
-
   /**
    * Initialises the view of the world with the given world description.
+   *
    * @param caption of the screen.
-   * @param world object.
+   * @param world   object.
    */
   public WorldView(String caption, ReadOnlyWorld world) {
     if (caption == null || "".equals(caption.trim())) {
@@ -61,20 +57,20 @@ public class WorldView extends JFrame implements View {
     menuBar = new JMenuBar();
     menu = new JMenu("Menu");
     menuBar.add(menu);
-    menuItem1=new JMenuItem("New Game");
+    menuItem1 = new JMenuItem("New Game");
     menu.add(menuItem1);
-    menuItem3=new JMenuItem("Upload file");
+    menuItem3 = new JMenuItem("Upload file");
     menu.add(menuItem3);
-    menuItem2=new JMenuItem("Quit Game");
+    menuItem2 = new JMenuItem("Quit Game");
     menu.add(menuItem2);
     this.setJMenuBar(menuBar);
-    ws=new WelcomeScreen();
+    ws = new WelcomeScreen();
     this.add(ws);
     this.world = world;
     cards = new JPanel(new CardLayout());
     ws = new WelcomeScreen();
     addPlayers = new PlayerPanel(this.world);
-    gamePanel=new GameScreen(this.world);
+    gamePanel = new GameScreen(this.world);
     cards.add(ws, welcomeCard);
     cards.add(addPlayers, playerConfigurationCard);
     cards.add(gamePanel, gameCard);
@@ -106,26 +102,23 @@ public class WorldView extends JFrame implements View {
       @Override
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'a') {
-          String[] itemOptions=world.getPlayerItems();
-          f.displayItemsDialog("Attack with item",itemOptions);
+          String[] itemOptions = world.getPlayerItems();
+          f.displayItemsDialog("Attack with item", itemOptions);
           f.attack(String.valueOf(itemsCombo.getSelectedItem()));
-        }
-        else if (e.getKeyChar() == 'l') {
+        } else if (e.getKeyChar() == 'l') {
           f.displayLookAround();
-        }
-        else if (e.getKeyChar() == 'p') {
-          if(world.getSpaceItems().length==0){
+        } else if (e.getKeyChar() == 'p') {
+          if (world.getSpaceItems().length == 0) {
             f.displayErrorDialog("Space has no items.");
-          }
-          else {
-            String[] itemOptions=world.getSpaceItems();
-            f.displayItemsDialog("Pick the item",itemOptions);
+          } else {
+            String[] itemOptions = world.getSpaceItems();
+            f.displayItemsDialog("Pick the item", itemOptions);
             f.pick(String.valueOf(itemsCombo.getSelectedItem()));
           }
         } else if (e.getKeyChar() == 'm') {
-            String[] itemOptions=world.getSpaces();
-            f.displayItemsDialog("Move the pet to location",itemOptions);
-            f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
+          String[] itemOptions = world.getSpaces();
+          f.displayItemsDialog("Move the pet to location", itemOptions);
+          f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
         }
       }
 
@@ -140,14 +133,14 @@ public class WorldView extends JFrame implements View {
   }
 
   @Override
-  public void showItemsDialog(String title, String[] items){
-    itemsCombo=new JComboBox<>(items);
+  public void showItemsDialog(String title, String[] items) {
+    itemsCombo = new JComboBox<>(items);
     JOptionPane.showMessageDialog(new JFrame(), itemsCombo, title,
         JOptionPane.QUESTION_MESSAGE);
   }
 
   @Override
-  public void showSuccessMessage(String title,String message) {
+  public void showSuccessMessage(String title, String message) {
     if (message == null || "".equals(message.trim())) {
       throw new IllegalArgumentException("message cannot be empty");
     }
@@ -191,6 +184,7 @@ public class WorldView extends JFrame implements View {
 
   /**
    * Upload a new world specification file.
+   *
    * @param f is the features object.
    */
   private void uploadFile(Features f) {

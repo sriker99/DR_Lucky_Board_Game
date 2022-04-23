@@ -29,7 +29,7 @@ public class SpaceImpl implements Space {
    * @throws IllegalArgumentException if the arguments doesn't meet the standards.
    */
   public SpaceImpl(int upperLeftRow, int upperLeftCol, int lowerRightRow, int lowerRightCol,
-      String nameOfSpace) throws IllegalArgumentException {
+                   String nameOfSpace) throws IllegalArgumentException {
     if ((upperLeftRow >= lowerRightRow) || (upperLeftCol >= lowerRightCol) || upperLeftRow < 0
         || lowerRightRow < 0 || upperLeftCol < 0 || lowerRightCol < 0) {
       throw new IllegalArgumentException("Invalid Coordinates");

@@ -20,20 +20,23 @@ public interface Features {
 
   /**
    * This method adds player to the game.
-   * @param playerType type of player whether human or computer.
-   * @param playerName name of the player.
+   *
+   * @param playerType     type of player whether human or computer.
+   * @param playerName     name of the player.
    * @param playerLocation location of the player where to start the game.
    */
-  void addPlayer(String playerType,String playerName,String playerLocation);
+  void addPlayer(String playerType, String playerName, String playerLocation);
 
   /**
    * Attack the target.
+   *
    * @param item with which target should be attacked.
    */
   void attack(String item);
 
   /**
    * Displays the item dialog to choose an item.
+   *
    * @param title of the dialog
    * @param items name of the items that should be present in the options.
    */
@@ -41,6 +44,7 @@ public interface Features {
 
   /**
    * Displays dialog box when there is an error.
+   *
    * @param msg to be displayed in the dialog box.
    */
   void displayErrorDialog(String msg);
@@ -52,6 +56,7 @@ public interface Features {
 
   /**
    * Pick item from the space.
+   *
    * @param item that should be picked from the spoce.
    */
   void pick(String item);
@@ -78,12 +83,14 @@ public interface Features {
 
   /**
    * Start a new game with the specifications given by the player.
+   *
    * @param filePath location of the txt file.
    */
   void playGameWithUploadedFile(String filePath);
 
   /**
    * moving the pet in the world.
+   *
    * @param location where pet should be moved.
    */
   void movePet(String location);

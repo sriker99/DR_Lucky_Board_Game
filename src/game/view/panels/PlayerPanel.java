@@ -1,19 +1,14 @@
 package game.view.panels;
 
-import java.awt.Component;
-import java.awt.Dimension;
+import game.controller.Features;
+import game.model.ReadOnlyWorld;
 import java.awt.Font;
-
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import game.controller.Features;
-import game.model.ReadOnlyWorld;
 
 /**
  * This class represents player panel in the world where players are added.
@@ -30,7 +25,7 @@ public class PlayerPanel extends JPanel {
   private JPanel buttonsPanel;
   private JLabel playerTypeLabel;
   private JComboBox<String> playerTypeComboBox;
-  private String[] playerTypeComboBoxItems = { humanPlayerPanel, computerPlayerPanel };
+  private String[] playerTypeComboBoxItems = {humanPlayerPanel, computerPlayerPanel};
   private JLabel playerNameLabel;
   private JLabel playerLocationLabel;
   private JTextArea playerNameTextArea;
@@ -40,6 +35,7 @@ public class PlayerPanel extends JPanel {
 
   /**
    * This constructor initialises player panel with all the values.
+   *
    * @param world is the readonly world object.
    */
   public PlayerPanel(ReadOnlyWorld world) {
@@ -86,10 +82,11 @@ public class PlayerPanel extends JPanel {
 
   /**
    * This method implements adding players to the game.
+   *
    * @param f is the features object.
    */
   public void setFeatures(Features f) {
-    if(f==null){
+    if (f == null) {
       throw new IllegalArgumentException("Features object shouldn't be null.");
     }
     playerTypeComboBox.addItemListener(l -> this.switchComputerToHumanScreen());
