@@ -22,9 +22,9 @@ public class DriverClass {
     try {
       Readable file = new FileReader(args[0]);
       int numOfTurns = Integer.parseInt(args[1]);
-      World model=new ConcreteWorld(file, new RandomGen(), numOfTurns);
-      Controller c = new ExtensibleController(model);
-      View view=new WorldView("Doctor Lucky",model);
+      World model = new ConcreteWorld(file, new RandomGen(), numOfTurns);
+      Controller c = new ExtensibleController(model, numOfTurns, args[0]);
+      View view = new WorldView("Doctor Lucky", model);
       c.execute(view);
     } catch (IOException ioe) {
       System.out.println(ioe.getMessage());

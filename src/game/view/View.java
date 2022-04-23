@@ -11,4 +11,11 @@ public interface View {
 	void showPickItemsDialog();
 
 	void showMessageDialog(String title,String response);
+	void changeToWelcomeScreen();
+
+	void changeToPlayerConfigScreen();
+
+	void changeToGameScreen();
+
+	void disposeFrame();
 }
