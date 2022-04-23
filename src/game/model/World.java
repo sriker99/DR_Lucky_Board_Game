@@ -47,7 +47,7 @@ public interface World extends ReadOnlyWorld{
    *
    * @return current space and neighbours.
    */
-  public String lookAround();
+//  public String lookAround();
 
   /**
    * This method displays the description about a player.
@@ -95,7 +95,7 @@ public interface World extends ReadOnlyWorld{
    *
    * @return the clues of the play.
    */
-  public String displayClues();
+//  public String displayClues();
 
   /**
    * Checks whether the game is over.

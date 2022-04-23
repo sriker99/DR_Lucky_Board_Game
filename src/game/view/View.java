@@ -6,4 +6,9 @@ public interface View {
 	 void setFeatures(Features f);
 	 void showSuccessMessage(String message);
 	 void showErrorMessage(String message);
+	void showItemsDialog();
+	void resetFocus();
+	void showPickItemsDialog();
+
+	void showMessageDialog(String title,String response);
 }

@@ -2,6 +2,7 @@ package game.controller.commands;
 
 import game.controller.WorldController;
 import game.model.World;
+import game.view.View;
 import java.io.IOException;
 
 /**
@@ -11,10 +12,8 @@ import java.io.IOException;
 public class AddComputerPlayer implements WorldController {
 
 
-
-
   @Override
-  public void playGame(World w) throws IllegalArgumentException {
+  public void playGame(World w, View view) throws IllegalArgumentException {
     if (w == null) {
       throw new IllegalArgumentException("model cannot be null");
     }

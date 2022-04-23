@@ -121,7 +121,7 @@ public class ConcreteWorld implements World {
     try {
       BufferedImage image = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_BGR);
       Graphics2D g = (Graphics2D) image.getGraphics();
-      g.setColor(Color.WHITE);
+      g.setColor(Color.BLACK);
       for (Space space : spaceList) {
         g.drawRect(space.getUpperLeftRow() * 20, space.getUpperLeftCol() * 20,
             space.getLowerRightRow() * 20 - space.getUpperLeftRow() * 20 + 18,
@@ -190,20 +190,22 @@ public class ConcreteWorld implements World {
   public String displayClues() {
     StringBuffer info = new StringBuffer();
     info.append(target.toString());
-    info.append(playersList.get(currentPlayerIndex % playerCount).toString());
-    boolean flag = playersList.get(currentPlayerIndex % playerCount).getItems().size() > 0;
-    if (flag) {
-      info.append(" with damages ");
-    }
-    for (String s : playersList.get(currentPlayerIndex % playerCount).getItems()) {
-      info.append(itemList.get(s).getDamage() + ", ");
-    }
-    if (flag) {
-      info.append(" respectively.\n");
-    }
-    if (pet.getPetLocation()
-        == playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex()) {
-      info.append("Pet is present in the current room as player.\n");
+    if(playerCount>0) {
+      info.append(playersList.get(currentPlayerIndex % playerCount).toString());
+      boolean flag = playersList.get(currentPlayerIndex % playerCount).getItems().size() > 0;
+      if (flag) {
+        info.append(" with damages ");
+      }
+      for (String s : playersList.get(currentPlayerIndex % playerCount).getItems()) {
+        info.append(itemList.get(s).getDamage() + ", ");
+      }
+      if (flag) {
+        info.append(" respectively.\n");
+      }
+      if (pet.getPetLocation()
+          == playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex()) {
+        info.append("Pet is present in the current room as player.\n");
+      }
     }
     return info.toString();
   }
@@ -633,4 +635,20 @@ public String[] getSpaces() {
 	String[] spaces=sequence.toArray(new String[sequence.size()]);
 	return spaces;
 }
+
+  @Override
+  public String[] getPlayerItems() {
+//    Player p= playersList.get(currentPlayerIndex);
+//    String[] items= p.getItems().toArray(new String[0]);
+    String[] temp={"Knife","Gun"};
+    return temp;
+  }
+
+  @Override
+  public String[] getSpaceItems(){
+//    Player p= playersList.get(currentPlayerIndex);
+//    String[] items= spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
+    String[] temp={"Knife","Gun"};
+    return temp;
+  }
 }

@@ -1,5 +1,9 @@
 package game.model;
 
 public interface ReadOnlyWorld {
-public String[] getSpaces();
+     String[] getSpaces();
+     String displayClues();
+     String[] getPlayerItems();
+     String lookAround();
+     String[] getSpaceItems();
 }

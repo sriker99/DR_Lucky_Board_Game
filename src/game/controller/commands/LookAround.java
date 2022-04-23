@@ -2,6 +2,7 @@ package game.controller.commands;
 
 import game.controller.WorldController;
 import game.model.World;
+import game.view.View;
 import java.io.IOException;
 
 /**
@@ -9,29 +10,22 @@ import java.io.IOException;
  * world-class and returns the description.
  */
 public class LookAround implements WorldController {
-  private Appendable out;
+  private String response;
 
-  /**
-   * This constructor initializes the look around object.
-   *
-   * @param out displays output.
-   */
-  public LookAround(Appendable out) {
-    if (out == null) {
-      throw new IllegalArgumentException("Appendable shouldn't be null.");
-    }
-    this.out = out;
+  public LookAround(){
+    this.response="";
   }
 
   @Override
-  public void playGame(World w) {
+  public void playGame(World w, View view) {
     if (w == null) {
       throw new IllegalArgumentException("model cannot be null");
     }
-    try {
-      out.append(w.lookAround());
-    } catch (IOException ioe) {
-      throw new IllegalStateException("Append failed");
-    }
+     response= w.lookAround();
+    view.showMessageDialog("Look Around",response);
+  }
+
+  public String getResponse(){
+    return response;
   }
 }

@@ -2,6 +2,7 @@ package game.controller.commands;
 
 import game.controller.WorldController;
 import game.model.World;
+import game.view.View;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class MovePet implements WorldController {
   }
 
   @Override
-  public void playGame(World w) throws IllegalArgumentException {
+  public void playGame(World w, View view) throws IllegalArgumentException {
     try {
       if (w == null) {
         throw new IllegalArgumentException("Model cannot be null");
