@@ -27,8 +27,8 @@ public class Attack implements WorldController {
 
   @Override
   public void playGame(World w, View view) throws IllegalArgumentException {
-      if (w == null) {
-        throw new IllegalArgumentException("model cannot be null");
+      if (w == null || view == null) {
+        throw new IllegalArgumentException("Model and view cannot be null");
       }
       try {
         w.attack(item);

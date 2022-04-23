@@ -17,6 +17,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This class represents the game screen where game is played.
+ */
 public class GameScreen extends JPanel {
   private static final long serialVersionUID = 1L;
   private JPanel graphPanel;
@@ -25,6 +28,10 @@ public class GameScreen extends JPanel {
   private JPanel responsePanel;
   private JPanel rulesPanel;
 
+  /**
+   * This is a constructs initialises the game panel.
+   * @param world is the read only world object.
+   */
   public GameScreen(ReadOnlyWorld world) {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
@@ -60,15 +67,8 @@ public class GameScreen extends JPanel {
   }
 
 
-
-  public void setFeatures(Features f) {
-
-  }
-
-
   @Override
   public void paintComponent(Graphics g) {
-
     Toolkit t=Toolkit.getDefaultToolkit();
     Image i=t.getImage("output.png");
     g.drawImage(i, 120,100,this);

@@ -11,14 +11,11 @@ import java.io.IOException;
  */
 public class AddComputerPlayer implements WorldController {
 
-
   @Override
   public void playGame(World w, View view) throws IllegalArgumentException {
-    if (w == null) {
-      throw new IllegalArgumentException("model cannot be null");
+    if (w == null || view == null) {
+      throw new IllegalArgumentException("model and view cannot be null");
     }
-
       w.addComputerPlayer();
-
   }
 }

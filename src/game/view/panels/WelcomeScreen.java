@@ -22,6 +22,9 @@ public class WelcomeScreen extends JPanel {
   private static final long serialVersionUID = 1L;
   private JButton startGame;
 
+  /**
+   * This constructor initializes the welcome screen panel.
+   */
   public WelcomeScreen() {
     this.setLayout(new BorderLayout());
     JLabel thumb = new JLabel();
@@ -34,7 +37,14 @@ public class WelcomeScreen extends JPanel {
     this.add(startGame, BorderLayout.PAGE_END);
   }
 
+  /**
+   * This method implements features present in the welcome screen.
+   * @param f is the features object.
+   */
   public void setFeatures(Features f) {
+    if(f==null){
+      throw new IllegalArgumentException("Features object shouldn't be null.");
+    }
     startGame.addActionListener(l -> f.switchToPlayerConfigScreen());
   }
 }

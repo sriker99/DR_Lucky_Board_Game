@@ -15,7 +15,7 @@ public class MovePet implements WorldController {
 
   /**
    * This constructor initializes move pet object with the given inputs.
-   *
+   * @param location where the pet to be moved.
    */
   public MovePet(String location) {
     if (location == null || "".equals(location.trim())) {
@@ -26,8 +26,8 @@ public class MovePet implements WorldController {
 
   @Override
   public void playGame(World w, View view) throws IllegalArgumentException {
-    if (w == null) {
-      throw new IllegalArgumentException("Model cannot be null");
+    if (w == null|| view == null) {
+      throw new IllegalArgumentException("Model and view cannot be null");
     }
     w.movePet(location);
     view.showSuccessMessage("Pet Status", "Pet has been moved.");

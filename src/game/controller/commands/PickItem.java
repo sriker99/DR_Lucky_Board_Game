@@ -15,7 +15,7 @@ public class PickItem implements WorldController {
 
   /**
    * This is a constructor which initializes a pick item object with given parameters.
-   *
+   * @param item is item to be picked from the space.
    */
   public PickItem(String item) {
     if (item==null||"".equals(item.trim())) {
@@ -26,8 +26,8 @@ public class PickItem implements WorldController {
 
   @Override
   public void playGame(World w, View v) throws IllegalArgumentException {
-      if (w == null) {
-        throw new IllegalArgumentException("model cannot be null");
+      if (w == null || v == null) {
+        throw new IllegalArgumentException("Model and view cannot be null");
       }
       try{
       w.pickItem(this.itemName);
