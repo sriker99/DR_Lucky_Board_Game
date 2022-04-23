@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +17,9 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 /**
- * This class implements World interface and creates a world from the users input and.
- * performs all the actions like moving the target, displaying neighbours, getting items.
+ * This class implements World interface and creates a world from the users
+ * input and. performs all the actions like moving the target, displaying
+ * neighbours, getting items.
  */
 public class ConcreteWorld implements World {
 
@@ -42,10 +44,9 @@ public class ConcreteWorld implements World {
   private int source;
   private int index;
 
-
   /**
-   * This constructor reads the input from the given format and assigns all the values to the
-   * objects and initializes the World object parameters.
+   * This constructor reads the input from the given format and assigns all the
+   * values to the objects and initializes the World object parameters.
    *
    * @param randNum is a random number generator object.
    * @param file    this is an input file should be in text format
@@ -83,8 +84,8 @@ public class ConcreteWorld implements World {
       }
       String nameOfSpace = br.nextLine();
       nameOfSpace.trim();
-      SpaceImpl s =
-          new SpaceImpl(upperLeftRow, upperLeftCol, lowerRightRow, lowerRightCol, nameOfSpace);
+      SpaceImpl s = new SpaceImpl(upperLeftRow, upperLeftCol, lowerRightRow, lowerRightCol,
+          nameOfSpace);
       spaceList.add(s);
       sequence.add(nameOfSpace);
     }
@@ -105,6 +106,7 @@ public class ConcreteWorld implements World {
       Space s = spaceList.get(spaceIndex);
       s.setItems(itemName.trim());
     }
+    this.constructWorld();
     this.playerCount = 0;
     currentPlayerIndex = 0;
     this.randNum = randNum;
@@ -121,20 +123,61 @@ public class ConcreteWorld implements World {
     try {
       BufferedImage image = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_BGR);
       Graphics2D g = (Graphics2D) image.getGraphics();
-      g.setColor(Color.BLACK);
+//      g.setBackground(Color.WHITE);
+//      g.clearRect(0, 0, 1000, 1000);
+      g.setColor(Color.WHITE);
       for (Space space : spaceList) {
         g.drawRect(space.getUpperLeftRow() * 20, space.getUpperLeftCol() * 20,
             space.getLowerRightRow() * 20 - space.getUpperLeftRow() * 20 + 18,
             space.getLowerRightCol() * 20 - space.getUpperLeftCol() * 20 + 18);
         g.setFont(new Font("TimesRoman", Font.ITALIC, 14));
-        g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 15,
+        g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 0,
             space.getUpperLeftCol() * 20 + 20);
       }
-      File f = new File("output.png");
+      File f = new File("res/output.png");
       ImageIO.write(image, "png", f);
+      BufferedImage out = null;
+      out = ImageIO.read(f);
+      BufferedImage crop = null;
+      crop = this.cropImage(out);
+      ImageIO.write(crop, "png", f);
     } catch (IOException ie) {
       throw new IllegalArgumentException("Unable to write the image into file.");
     }
+  }
+
+  private BufferedImage cropImage(BufferedImage image) {
+    int minY = 0, maxY = 0, minX = Integer.MAX_VALUE, maxX = 0;
+    boolean isBlank, minYIsDefined = false;
+    Raster raster = image.getRaster();
+
+    for (int y = 0; y < image.getHeight(); y++) {
+      isBlank = true;
+
+      for (int x = 0; x < image.getWidth(); x++) {
+        // Change condition to (raster.getSample(x, y, 3) != 0)
+        // for better performance
+        if (raster.getPixel(x, y, (int[]) null)[2] != 0) {
+          isBlank = false;
+
+          if (x < minX)
+            minX = x;
+          if (x > maxX)
+            maxX = x;
+        }
+      }
+
+      if (!isBlank) {
+        if (!minYIsDefined) {
+          minY = y;
+          minYIsDefined = true;
+        } else {
+          if (y > maxY)
+            maxY = y;
+        }
+      }
+    }
+    return image.getSubimage(minX, minY, maxX - minX + 1, maxY - minY + 1);
   }
 
   /**
@@ -190,7 +233,7 @@ public class ConcreteWorld implements World {
   public String displayClues() {
     StringBuffer info = new StringBuffer();
     info.append(target.toString());
-    if(playerCount>0) {
+    if (playerCount > 0) {
       info.append(playersList.get(currentPlayerIndex % playerCount).toString());
       boolean flag = playersList.get(currentPlayerIndex % playerCount).getItems().size() > 0;
       if (flag) {
@@ -202,8 +245,8 @@ public class ConcreteWorld implements World {
       if (flag) {
         info.append(" respectively.\n");
       }
-      if (pet.getPetLocation()
-          == playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex()) {
+      if (pet.getPetLocation() == playersList.get(currentPlayerIndex % playerCount)
+          .getCurrentSpaceIndex()) {
         info.append("Pet is present in the current room as player.\n");
       }
     }
@@ -336,8 +379,8 @@ public class ConcreteWorld implements World {
   }
 
   private boolean isPlayerVisible() {
-    Space spaceObj =
-        spaceList.get(playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex());
+    Space spaceObj = spaceList
+        .get(playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex());
     if (spaceObj.getPlayersInSpace().size() > 1) {
       return true;
     }
@@ -410,7 +453,6 @@ public class ConcreteWorld implements World {
       throw new IllegalStateException("Player doesn't have item limit.");
     }
   }
-
 
   @Override
   public void movePlayer(String nextSpaceName) {
@@ -486,9 +528,9 @@ public class ConcreteWorld implements World {
     List<String> items = new ArrayList<String>();
     List<String> neighbours = new ArrayList<String>();
     List<String> players = new ArrayList<String>();
-    String s =
-        spaceList.get(playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex())
-            .getNameOfSpace();
+    String s = spaceList
+        .get(playersList.get(currentPlayerIndex % playerCount).getCurrentSpaceIndex())
+        .getNameOfSpace();
     Space spaceObj = null;
     for (Space space : spaceList) {
       if ((space.getNameOfSpace()).trim().equals(s.trim())) {
@@ -498,9 +540,8 @@ public class ConcreteWorld implements World {
       }
     }
     StringBuffer info = new StringBuffer();
-    info.append(
-        "Target location is: " + spaceList.get(target.getCurrentSpaceIndex()).getNameOfSpace()
-            + "\n");
+    info.append("Target location is: "
+        + spaceList.get(target.getCurrentSpaceIndex()).getNameOfSpace() + "\n");
     String petLocation = spaceList.get(pet.getPetLocation()).getNameOfSpace();
     if (petLocation.equals(s)) {
       info.append("Pet is present in the current room\n");
@@ -543,7 +584,6 @@ public class ConcreteWorld implements World {
     numOfTurns--;
     return info.toString();
   }
-
 
   @Override
   public String displayPlayerInfo(int i) {
@@ -630,25 +670,26 @@ public class ConcreteWorld implements World {
     return winner;
   }
 
-@Override
-public String[] getSpaces() {
-	String[] spaces=sequence.toArray(new String[sequence.size()]);
-	return spaces;
-}
+  @Override
+  public String[] getSpaces() {
+    String[] spaces = sequence.toArray(new String[sequence.size()]);
+    return spaces;
+  }
 
   @Override
   public String[] getPlayerItems() {
 //    Player p= playersList.get(currentPlayerIndex);
 //    String[] items= p.getItems().toArray(new String[0]);
-    String[] temp={"Knife","Gun"};
+    String[] temp = { "Knife", "Gun" };
     return temp;
   }
 
   @Override
-  public String[] getSpaceItems(){
+  public String[] getSpaceItems() {
 //    Player p= playersList.get(currentPlayerIndex);
 //    String[] items= spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
-    String[] temp={"Knife","Gun"};
+    String[] temp = { "Knife", "Gun" };
     return temp;
   }
+
 }

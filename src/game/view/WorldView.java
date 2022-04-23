@@ -8,11 +8,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 
 import javax.swing.JFileChooser;
 import java.awt.event.KeyEvent;
@@ -55,28 +56,29 @@ public class WorldView extends JFrame implements View {
     menuBar = new JMenuBar();
     menu = new JMenu("Menu");
     menuBar.add(menu);
-    menuItem1=new JMenuItem("New Game");
+    menuItem1 = new JMenuItem("New Game");
     menu.add(menuItem1);
-    menuItem3=new JMenuItem("Upload file");
-    menu.add(menuItem3);
-    menuItem2=new JMenuItem("Quit Game");
-    itemOptions=new JComboBox<>(world.getPlayerItems());
-    spaceItemOptions=new JComboBox<>(world.getSpaceItems());
+    menuItem2 = new JMenuItem("Upload file");
     menu.add(menuItem2);
+    menuItem3 = new JMenuItem("Quit Game");
+    itemOptions = new JComboBox<>(world.getPlayerItems());
+    spaceItemOptions = new JComboBox<>(world.getSpaceItems());
+    menu.add(menuItem3);
     this.setJMenuBar(menuBar);
-    ws=new WelcomeScreen();
+    ws = new WelcomeScreen();
     this.add(ws);
     this.world = world;
     cards = new JPanel(new CardLayout());
     ws = new WelcomeScreen();
     addPlayers = new PlayerPanel(this.world);
-    gamePanel=new GameScreen(this.world);
+    gamePanel = new GameScreen(this.world);
     cards.add(ws, welcomeCard);
     cards.add(addPlayers, playerConfigurationCard);
     cards.add(gamePanel, gameCard);
     this.add(cards);
-    setSize(500, 500);
-    setLocation(500, 500);
+    this.setSize(500, 500);
+    this.setLocation(500, 500);
+    setPreferredSize(new Dimension(500, 500));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
     setVisible(true);
@@ -123,13 +125,13 @@ public class WorldView extends JFrame implements View {
   }
 
   @Override
-  public void showItemsDialog(){
+  public void showItemsDialog() {
     JOptionPane.showMessageDialog(new JFrame(), itemOptions, "Attack with item",
         JOptionPane.QUESTION_MESSAGE);
   }
 
   @Override
-  public void showPickItemsDialog(){
+  public void showPickItemsDialog() {
     JOptionPane.showMessageDialog(new JFrame(), spaceItemOptions, "Attack with item",
         JOptionPane.QUESTION_MESSAGE);
   }
@@ -154,9 +156,8 @@ public class WorldView extends JFrame implements View {
   }
 
   @Override
-  public void showMessageDialog(String title,String message){
-    JOptionPane.showMessageDialog(new JFrame(), message,title ,
-        JOptionPane.INFORMATION_MESSAGE);
+  public void showMessageDialog(String title, String message) {
+    JOptionPane.showMessageDialog(new JFrame(), message, title, JOptionPane.INFORMATION_MESSAGE);
   }
 
   @Override
@@ -182,6 +183,8 @@ public class WorldView extends JFrame implements View {
     c.show(cards, this.gameCard);
     menuItem1.setEnabled(false);
     menuItem2.setEnabled(false);
+    this.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
+    this.setLocation(0, 0);
   }
 
   private void uploadFile(Features f) {
