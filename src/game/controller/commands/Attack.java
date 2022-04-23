@@ -30,6 +30,11 @@ public class Attack implements WorldController {
       if (w == null) {
         throw new IllegalArgumentException("model cannot be null");
       }
-      w.attack(item);
+      try {
+        w.attack(item);
+        view.showSuccessMessage("Player Status","Attacked target successfully.");
+      }catch (IllegalStateException ise){
+        view.showErrorMessage(ise.getMessage());
+      }
   }
 }

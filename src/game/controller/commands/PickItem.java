@@ -29,6 +29,11 @@ public class PickItem implements WorldController {
       if (w == null) {
         throw new IllegalArgumentException("model cannot be null");
       }
+      try{
       w.pickItem(this.itemName);
+      v.showSuccessMessage("Player Status","Picked item successfully.");
+      }catch (IllegalStateException ise){
+      v.showErrorMessage(ise.getMessage());
+  }
   }
 }

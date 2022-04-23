@@ -7,10 +7,13 @@ void exitProgram();
 void addPlayer(String playerType,String playerName,String playerLocation);
 
   void attack(String item);
-  void displayAttackItemDialog();
+
+  void displayItemsDialog(String title, String[] items);
+
+  void displayErrorDialog(String msg);
+
   void displayLookAround();
   void pick(String item);
-  void displayPickItemDialog();
   void startGame();
 
   void switchToWelcomeScreen();
@@ -21,4 +24,5 @@ void addPlayer(String playerType,String playerName,String playerLocation);
 
   void playGameWithUploadedFile(String filePath);
 
+  void movePet(String location);
 }

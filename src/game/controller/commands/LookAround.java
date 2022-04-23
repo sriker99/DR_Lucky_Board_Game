@@ -22,7 +22,7 @@ public class LookAround implements WorldController {
       throw new IllegalArgumentException("model cannot be null");
     }
      response= w.lookAround();
-    view.showMessageDialog("Look Around",response);
+    view.showSuccessMessage("Look Around",response);
   }
 
   public String getResponse(){

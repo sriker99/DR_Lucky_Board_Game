@@ -18,8 +18,6 @@ import javax.swing.JFileChooser;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import game.view.panels.GameScreen;
 
 import game.controller.Features;
 import game.model.ReadOnlyWorld;
@@ -37,8 +35,7 @@ public class WorldView extends JFrame implements View {
   private JMenuItem menuItem1;
   private JMenuItem menuItem2;
   private JMenuItem menuItem3;
-  private JComboBox itemOptions;
-  private JComboBox spaceItemOptions;
+  private JComboBox itemsCombo;
   private JPanel cards;
 
   private final String welcomeCard = "WELCOMECARD";
@@ -60,8 +57,6 @@ public class WorldView extends JFrame implements View {
     menuItem3=new JMenuItem("Upload file");
     menu.add(menuItem3);
     menuItem2=new JMenuItem("Quit Game");
-    itemOptions=new JComboBox<>(world.getPlayerItems());
-    spaceItemOptions=new JComboBox<>(world.getSpaceItems());
     menu.add(menuItem2);
     this.setJMenuBar(menuBar);
     ws=new WelcomeScreen();
@@ -99,16 +94,30 @@ public class WorldView extends JFrame implements View {
     menuItem2.addActionListener(l -> this.uploadFile(f));
     menuItem3.addActionListener(l -> f.exitProgram());
     gamePanel.setFeatures(f);
-
     this.addKeyListener(new KeyListener() {
       @Override
       public void keyTyped(KeyEvent e) {
-        System.out.println("ravi");
         if (e.getKeyChar() == 'a') {
-          f.displayAttackItemDialog();
+          String[] itemOptions=world.getPlayerItems();
+          f.displayItemsDialog("Attack with item",itemOptions);
+          f.attack(String.valueOf(itemsCombo.getSelectedItem()));
         }
-        if (e.getKeyChar() == '1') {
+        else if (e.getKeyChar() == 'l') {
           f.displayLookAround();
+        }
+        else if (e.getKeyChar() == 'p') {
+          if(world.getSpaceItems().length==0){
+            f.displayErrorDialog("Space has no items.");
+          }
+          else {
+            String[] itemOptions=world.getSpaceItems();
+            f.displayItemsDialog("Pick the item",itemOptions);
+            f.pick(String.valueOf(itemsCombo.getSelectedItem()));
+          }
+        } else if (e.getKeyChar() == 'm') {
+            String[] itemOptions=world.getSpaces();
+            f.displayItemsDialog("Move the pet to location",itemOptions);
+            f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
         }
       }
 
@@ -122,24 +131,26 @@ public class WorldView extends JFrame implements View {
     });
   }
 
+//  @Override
+//  public void showItemsDialog(){
+//    itemOptions=new JComboBox<>(world.getPlayerItems());
+//    JOptionPane.showMessageDialog(new JFrame(), itemOptions, "Attack with item",
+//        JOptionPane.QUESTION_MESSAGE);
+//  }
+
   @Override
-  public void showItemsDialog(){
-    JOptionPane.showMessageDialog(new JFrame(), itemOptions, "Attack with item",
+  public void showItemsDialog(String title, String[] items){
+    itemsCombo=new JComboBox<>(items);
+    JOptionPane.showMessageDialog(new JFrame(), itemsCombo, title,
         JOptionPane.QUESTION_MESSAGE);
   }
 
   @Override
-  public void showPickItemsDialog(){
-    JOptionPane.showMessageDialog(new JFrame(), spaceItemOptions, "Attack with item",
-        JOptionPane.QUESTION_MESSAGE);
-  }
-
-  @Override
-  public void showSuccessMessage(String message) {
+  public void showSuccessMessage(String title,String message) {
     if (message == null || "".equals(message.trim())) {
       throw new IllegalArgumentException("message cannot be empty");
     }
-    JOptionPane.showMessageDialog(new JFrame(), message, "Player Status",
+    JOptionPane.showMessageDialog(new JFrame(), message, title,
         JOptionPane.INFORMATION_MESSAGE);
 
   }
@@ -153,11 +164,11 @@ public class WorldView extends JFrame implements View {
         JOptionPane.ERROR_MESSAGE);
   }
 
-  @Override
-  public void showMessageDialog(String title,String message){
-    JOptionPane.showMessageDialog(new JFrame(), message,title ,
-        JOptionPane.INFORMATION_MESSAGE);
-  }
+//  @Override
+//  public void showMessageDialog(String title,String message){
+//    JOptionPane.showMessageDialog(new JFrame(), message,title ,
+//        JOptionPane.INFORMATION_MESSAGE);
+//  }
 
   @Override
   public void changeToWelcomeScreen() {
@@ -173,7 +184,6 @@ public class WorldView extends JFrame implements View {
     c.show(cards, this.playerConfigurationCard);
     menuItem1.setEnabled(false);
     menuItem2.setEnabled(false);
-
   }
 
   @Override
@@ -199,7 +209,5 @@ public class WorldView extends JFrame implements View {
   public void disposeFrame() {
     this.setVisible(false);
     this.dispose();
-
   }
-
 }

@@ -2,13 +2,11 @@ package game.controller;
 
 import game.controller.commands.Attack;
 import game.controller.commands.LookAround;
+import game.controller.commands.MovePet;
 import game.controller.commands.PickItem;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.function.Function;
 
 import game.controller.commands.AddComputerPlayer;
 import game.controller.commands.AddPlayer;
@@ -54,7 +52,7 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void exitProgram() {
-    view.showSuccessMessage("Game has ended successfully");
+    view.showSuccessMessage("Game Status","Game has ended successfully");
     view.disposeFrame();
     this.startGame();
   }
@@ -79,7 +77,7 @@ public class ExtensibleController implements Controller, Features {
         if (playerCount == 10) {
           view.changeToGameScreen();
         }
-        view.showSuccessMessage("Computer player is added to the world");
+        view.showSuccessMessage("Player Status","Computer player is added to the world");
       } catch (IllegalArgumentException ie) {
         view.showErrorMessage(ie.getMessage());
       }
@@ -89,7 +87,7 @@ public class ExtensibleController implements Controller, Features {
         wc.playGame(model,view);
         playerCount += 1;
         String result = String.format("%s player is added to the world", playerName);
-        view.showSuccessMessage(result);
+        view.showSuccessMessage("Player Status",result);
         if (playerCount == 10) {
           view.changeToGameScreen();
         }
@@ -151,11 +149,11 @@ public class ExtensibleController implements Controller, Features {
       this.startGame();
       view.changeToWelcomeScreen();
     } catch (IllegalArgumentException ie) {
-      view.showErrorMessage("Input file doesnot meet correct standards");
+      view.showErrorMessage("Input file does not meet correct standards");
       this.startGame();
       view.changeToWelcomeScreen();
     } catch (InputMismatchException ime) {
-      view.showErrorMessage("Input file doesnot meet correct standards");
+      view.showErrorMessage("Input file does not meet correct standards");
       this.startGame();
       view.changeToWelcomeScreen();
     }
@@ -167,10 +165,6 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model,view);
   }
 
-  @Override
-  public void displayAttackItemDialog(){
-    view.showItemsDialog();
-  }
 
   @Override
   public void pick(String item) {
@@ -179,9 +173,21 @@ public class ExtensibleController implements Controller, Features {
   }
 
   @Override
-  public void displayPickItemDialog(){
-    view.showPickItemsDialog();
+  public void movePet(String location) {
+    WorldController wc= new MovePet(location);
+    wc.playGame(model,view);
   }
+
+  @Override
+  public void displayItemsDialog(String title,String[] items){
+    view.showItemsDialog(title,items);
+  }
+
+  @Override
+  public void displayErrorDialog(String msg){
+    view.showErrorMessage(msg);
+  }
+
   @Override
   public void displayLookAround() {
     WorldController wc= new LookAround();

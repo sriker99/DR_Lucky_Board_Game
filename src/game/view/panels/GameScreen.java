@@ -20,15 +20,10 @@ import javax.swing.JPanel;
 public class GameScreen extends JPanel {
   private static final long serialVersionUID = 1L;
   private JPanel graphPanel;
-  private JLabel world;
   private JPanel cluesPanel;
   private JPanel sidePanel;
   private JPanel responsePanel;
   private JPanel rulesPanel;
-  private Graphics g;
-  private Features f;
-  private JComboBox itemOptions;
-  private JButton jb;
 
   public GameScreen(ReadOnlyWorld world) {
     if (world == null) {
@@ -42,8 +37,6 @@ public class GameScreen extends JPanel {
     thumb.setIcon(icon);
     String description=world.displayClues();
     JLabel clues=new JLabel(description);
-    itemOptions=new JComboBox<>(world.getPlayerItems());
-    jb=new JButton("test");
     JLabel rules=new JLabel("<html>Enter 1 to move the player<br/>" +
         "2 to pick item from the space<br/>" +
         "3 to look around the player<br/>" +
@@ -62,7 +55,6 @@ public class GameScreen extends JPanel {
     sidePanel.add(cluesPanel);
     sidePanel.add(responsePanel);
     rulesPanel.add(rules);
-    rulesPanel.add(jb);
     sidePanel.add(rulesPanel);
     this.add(sidePanel);
   }
@@ -73,10 +65,6 @@ public class GameScreen extends JPanel {
 
   }
 
-  public void setResponse(String response){
-    JLabel jl=new JLabel("Looked around");
-    responsePanel.add(jl);
-  }
 
   @Override
   public void paintComponent(Graphics g) {
