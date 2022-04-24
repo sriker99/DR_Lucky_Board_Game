@@ -76,7 +76,7 @@ public class GameScreen extends JPanel {
   @Override
   public void paintComponent(Graphics g) {
     Toolkit t = Toolkit.getDefaultToolkit();
-    Image i = t.getImage("output.png");
+    Image i = t.getImage("res/output.png");
     g.drawImage(i, 120, 100, this);
   }
 }
