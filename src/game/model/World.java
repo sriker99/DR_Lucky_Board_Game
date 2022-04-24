@@ -113,4 +113,10 @@ public interface World extends ReadOnlyWorld {
    */
   public String getWinner();
 
+  /**
+   * Finds the player turn.
+   * @return type of player who has to play.
+   */
+  public String getPlayerTurn();
+
 }

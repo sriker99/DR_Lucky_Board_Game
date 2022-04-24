@@ -365,6 +365,9 @@ public class ConcreteWorld implements World {
         pickItem(spaceList.get(p.getCurrentSpaceIndex()).getItems().get(0));
       }
     }
+    if(playersList.get(currentPlayerIndex%playerCount).getPlayerType().equals("COMPUTER")){
+      return checkComputerPlayer();
+    }
     return info.toString();
   }
 
@@ -771,6 +774,11 @@ public class ConcreteWorld implements World {
     Player p = playersList.get(this.currentPlayerIndex % playerCount);
     String[] items = spaceList.get(p.getCurrentSpaceIndex()).getItems().toArray(new String[0]);
     return items;
+  }
+
+  @Override
+  public String getPlayerTurn(){
+    return playersList.get(this.currentPlayerIndex%playerCount).getPlayerType();
   }
 
 }
