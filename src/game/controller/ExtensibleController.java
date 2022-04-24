@@ -5,6 +5,7 @@ import game.controller.commands.AddPlayer;
 import game.controller.commands.Attack;
 import game.controller.commands.LookAround;
 import game.controller.commands.MovePet;
+import game.controller.commands.MovePlayer;
 import game.controller.commands.PickItem;
 import game.model.ConcreteWorld;
 import game.model.RandomGen;
@@ -13,6 +14,7 @@ import game.view.View;
 import game.view.WorldView;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -119,6 +121,8 @@ public class ExtensibleController implements Controller, Features {
       this.execute(view);
     } catch (FileNotFoundException e) {
       view.showErrorMessage(e.getMessage());
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -169,6 +173,8 @@ public class ExtensibleController implements Controller, Features {
       view.showErrorMessage("Input file does not meet correct standards");
       this.startGame();
       view.changeToWelcomeScreen();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
@@ -179,6 +185,7 @@ public class ExtensibleController implements Controller, Features {
     }
     WorldController wc = new Attack(item);
     wc.playGame(model, view);
+    view.updateClues();
   }
 
 
@@ -189,6 +196,7 @@ public class ExtensibleController implements Controller, Features {
     }
     WorldController wc = new PickItem(item);
     wc.playGame(model, view);
+    view.updateClues();
   }
 
   @Override
@@ -198,6 +206,14 @@ public class ExtensibleController implements Controller, Features {
     }
     WorldController wc = new MovePet(location);
     wc.playGame(model, view);
+    view.updateClues();
+  }
+
+  @Override
+  public void movePlayer(int x, int y) {
+    WorldController wc = new MovePlayer(x,y);
+    wc.playGame(model, view);
+    view.updateClues();
   }
 
   @Override
@@ -222,4 +238,5 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model, view);
     view.updateClues();
   }
+
 }

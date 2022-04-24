@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,13 +28,15 @@ public class GameScreen extends JPanel {
   private JPanel rulesPanel;
   private ReadOnlyWorld world;
   private JLabel clues;
+  private ImageIcon icon;
+  private JLabel thumb;
 
   /**
    * This is a constructs initialises the game panel.
    *
    * @param world is the read only world object.
    */
-  public GameScreen(ReadOnlyWorld world) {
+  public GameScreen(ReadOnlyWorld world) throws IOException {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
     }
@@ -43,11 +46,10 @@ public class GameScreen extends JPanel {
     this.setBorder(border);
     sidePanel = new JPanel();
     sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
-    ImageIcon icon = new ImageIcon("res/output.png");
-    JLabel thumb = new JLabel();
+    icon = new ImageIcon(world.cropImage());
+    thumb = new JLabel();
     thumb.setIcon(icon);
     String description = world.displayClues();
-    JLabel clues = new JLabel(description);
     clues = new JLabel(description);
     JLabel rules = new JLabel("<html>Enter 1 to move the player<br/>"
         + "p to pick item from the space<br/>" + "l to look around the player<br/>"
@@ -71,12 +73,15 @@ public class GameScreen extends JPanel {
   public void updateClues() {
     String temp = world.displayClues();
     clues.setText(temp);
+    try {
+      thumb.setIcon(new ImageIcon(world.cropImage()));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Unable to read the file");
+    }
   }
 
   @Override
   public void paintComponent(Graphics g) {
     Toolkit t = Toolkit.getDefaultToolkit();
-    Image i = t.getImage("res/output.png");
-    g.drawImage(i, 120, 100, this);
   }
 }

@@ -1,6 +1,7 @@
 package game.view;
 
 import game.controller.Features;
+import java.io.IOException;
 
 /**
  * This interfaces contains method signatures of functionalities where certain operations are done.

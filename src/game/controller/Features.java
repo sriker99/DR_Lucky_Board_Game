@@ -1,5 +1,7 @@
 package game.controller;
 
+import java.io.IOException;
+
 /**
  * This interface represents a set of features that the program offers. Each
  * feature is exposed as a function in this interface. This function is used
@@ -32,7 +34,7 @@ public interface Features {
    *
    * @param item with which target should be attacked.
    */
-  void attack(String item);
+  void attack(String item) ;
 
   /**
    * Displays the item dialog to choose an item.
@@ -93,5 +95,12 @@ public interface Features {
    *
    * @param location where pet should be moved.
    */
-  void movePet(String location);
+  void movePet(String location) ;
+
+  /**
+   * moving player in the world.
+   * @param x coordinate on X-axis
+   * @param y coordinate on Y-axis
+   */
+  void movePlayer(int x, int y);
 }
