@@ -2,6 +2,7 @@ package game.model;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
@@ -43,6 +44,9 @@ public class ConcreteWorld implements World {
   private List<Integer> traversal;
   private int source;
   private int index;
+  private Graphics graphicsObj;
+  private BufferedImage out;
+  private BufferedImage image;
 
   /**
    * This constructor reads the input from the given format and assigns all the
@@ -58,6 +62,7 @@ public class ConcreteWorld implements World {
       throw new IllegalArgumentException("File and random number shouldn't be empty. "
           + "Number of turns can't be negative or zero.");
     }
+    out=null;
     sequence = new ArrayList<String>();
     neighboursList = new ArrayList<String>();
     spaceList = new ArrayList<Space>();
@@ -121,52 +126,54 @@ public class ConcreteWorld implements World {
   @Override
   public void constructWorld() {
     try {
-      BufferedImage image = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_BGR);
+      image = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_BGR);
       Graphics2D g = (Graphics2D) image.getGraphics();
-//      g.setBackground(Color.WHITE);
-//      g.clearRect(0, 0, 1000, 1000);
       g.setColor(Color.WHITE);
       for (Space space : spaceList) {
         g.drawRect(space.getUpperLeftRow() * 20, space.getUpperLeftCol() * 20,
-            space.getLowerRightRow() * 20 - space.getUpperLeftRow() * 20 + 18,
-            space.getLowerRightCol() * 20 - space.getUpperLeftCol() * 20 + 18);
+            (space.getLowerRightRow() - space.getUpperLeftRow()+1) * 20 ,
+            (space.getLowerRightCol()  - space.getUpperLeftCol()+1) * 20);
         g.setFont(new Font("TimesRoman", Font.ITALIC, 14));
-        g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 0,
+        g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 20,
             space.getUpperLeftCol() * 20 + 20);
       }
       File f = new File("res/output.png");
       ImageIO.write(image, "png", f);
-      BufferedImage out = null;
       out = ImageIO.read(f);
-      BufferedImage crop = null;
-      crop = this.cropImage(out);
-      ImageIO.write(crop, "png", f);
+//      BufferedImage crop = null;
+//      crop = this.cropImage();
+//      ImageIO.write(crop, "png", f);
     } catch (IOException ie) {
       throw new IllegalArgumentException("Unable to write the image into file.");
     }
   }
 
-  private BufferedImage cropImage(BufferedImage image) {
+  @Override
+  public BufferedImage cropImage(){
+    try {
+      File f = new File("res/output.png");
+      ImageIO.write(image, "png", f);
+      out = ImageIO.read(f);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Unable to read the file.");
+    }
     int minY = 0, maxY = 0, minX = Integer.MAX_VALUE, maxX = 0;
     boolean isBlank, minYIsDefined = false;
-    Raster raster = image.getRaster();
+    Raster raster = out.getRaster();
 
-    for (int y = 0; y < image.getHeight(); y++) {
+    for (int y = 0; y < out.getHeight(); y++) {
       isBlank = true;
-
-      for (int x = 0; x < image.getWidth(); x++) {
+      for (int x = 0; x < out.getWidth(); x++) {
         // Change condition to (raster.getSample(x, y, 3) != 0)
         // for better performance
         if (raster.getPixel(x, y, (int[]) null)[2] != 0) {
           isBlank = false;
-
           if (x < minX)
             minX = x;
           if (x > maxX)
             maxX = x;
         }
       }
-
       if (!isBlank) {
         if (!minYIsDefined) {
           minY = y;
@@ -177,7 +184,59 @@ public class ConcreteWorld implements World {
         }
       }
     }
-    return image.getSubimage(minX, minY, maxX - minX + 1, maxY - minY + 1);
+
+    BufferedImage modifiedImg=out;
+//    try{
+//      modifiedImg=ImageIO.read(ClassLoader.getSystemResource("output.png"));
+//    }catch(IOException ioe){
+//      throw new IllegalArgumentException("Can't read file.");
+////      System.out.println("exception");
+//    }
+    graphicsObj=modifiedImg.getGraphics();
+    int x1=0;
+    int x2=0;
+    int y1=0;
+    int y2=0;
+    Space s=spaceList.get(target.getCurrentSpaceIndex());
+    x1=s.getUpperLeftRow();
+    x2=s.getLowerRightRow();
+    y1=s.getUpperLeftCol();
+    y2=s.getLowerRightCol();
+    System.out.println(x1+" "+" "+x2+" "+y1+" "+y2);
+    graphicsObj.setColor(Color.WHITE);
+    graphicsObj.drawOval(((x1)*20)+60,((y1)*20)+20,10,10);
+    for(Player p:playersList){
+     s=spaceList.get(p.getCurrentSpaceIndex());
+      x1=s.getUpperLeftRow();
+      x2=s.getLowerRightRow();
+      y1=s.getUpperLeftCol();
+      y2=s.getLowerRightCol();
+//      System.out.println(x1+" "+" "+x2+" "+y1+" "+y2);
+      if(playersList.indexOf(p)==0)
+      graphicsObj.setColor(Color.YELLOW);
+      else if(playersList.indexOf(p)==1)
+        graphicsObj.setColor(Color.BLUE);
+      else if(playersList.indexOf(p)==2)
+        graphicsObj.setColor(Color.GREEN);
+      else if(playersList.indexOf(p)==3)
+        graphicsObj.setColor(Color.ORANGE);
+      else if(playersList.indexOf(p)==4)
+        graphicsObj.setColor(Color.LIGHT_GRAY);
+      else if(playersList.indexOf(p)==5)
+        graphicsObj.setColor(Color.PINK);
+      else if(playersList.indexOf(p)==6)
+        graphicsObj.setColor(Color.RED);
+      else if(playersList.indexOf(p)==7)
+        graphicsObj.setColor(Color.MAGENTA);
+      else if(playersList.indexOf(p)==8)
+        graphicsObj.setColor(Color.CYAN);
+      else if(playersList.indexOf(p)==9)
+        graphicsObj.setColor(Color.GRAY);
+      graphicsObj.fillOval((x1*20)+60+(playersList.indexOf(p)*10),(y1*20)+20,10,10);
+    }
+//    File f = new File("res/modified.png");
+//    ImageIO.write(modifiedImg, "png", f);
+    return modifiedImg.getSubimage(minX, minY, maxX - minX + 1, maxY - minY + 1);
   }
 
   /**
@@ -298,7 +357,7 @@ public class ConcreteWorld implements World {
         movePet(spaceList.get(randSpace).getNameOfSpace());
         info.append(String.format("Computer player %s moved the pet\n", p.getPlayerName()));
       } else if (spaceList.get(p.getCurrentSpaceIndex()).getItems().isEmpty() || choice == 0) {
-        movePlayer(nextSpaceObj.getNameOfSpace());
+        movePlayerComp(nextSpaceObj.getNameOfSpace());
         info.append(String.format("Computer player %s has been moved.\n", p.getPlayerName()));
       } else if (choice == 3) {
         info.append(String.format("Computer player %s has picked item %s.\n", p.getPlayerName(),
@@ -455,7 +514,29 @@ public class ConcreteWorld implements World {
   }
 
   @Override
-  public void movePlayer(String nextSpaceName) {
+  public void movePlayer(int y,int x) {
+    x=(x/20)-3;
+    y=y/20;
+    System.out.println(x+"  "+y);
+    String spaceName="";
+    for(Space s:spaceList){
+        if (x >= s.getUpperLeftCol() && x <= s.getLowerRightCol() +1
+            && y >= s.getUpperLeftRow() &&  y<= s.getLowerRightRow()) {
+          spaceName = s.getNameOfSpace();
+          System.out.println("location"+s.getUpperLeftCol()+" "+s.getLowerRightCol()+" "+
+              s.getUpperLeftRow()+" "+s.getLowerRightRow());
+          System.out.println("Click "+x+" "+y);
+          break;
+        }
+    }
+    System.out.println(spaceName);
+    if("".equals(spaceName.trim())){
+      throw new IllegalArgumentException("Invalid click.");
+    }
+    movePlayerComp(spaceName);
+  }
+
+  private void movePlayerComp(String nextSpaceName) {
     if (nextSpaceName == null || "".equals(nextSpaceName.trim())) {
       throw new IllegalArgumentException("Space name shouldn't be empty.\n");
     } else {

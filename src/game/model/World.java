@@ -1,5 +1,7 @@
 package game.model;
 
+import java.awt.image.BufferedImage;
+
 /**
  * This interfaces declares method signatures for constructing a World.
  */
@@ -10,6 +12,12 @@ public interface World extends ReadOnlyWorld {
    */
   public void constructWorld();
 
+  /**
+   * This method moves the player to the position where user clicked.
+   * @param x is the x coordinate.
+   * @param y is the y coordinate.
+   */
+  void movePlayer(int x, int y);
 
   /**
    * It displays information of space like its neighbours and items.
@@ -34,12 +42,6 @@ public interface World extends ReadOnlyWorld {
    */
   public void pickItem(String item);
 
-  /**
-   * Moving current player to next given space.
-   *
-   * @param spaceName is the next move of the player.
-   */
-  public void movePlayer(String spaceName);
 
   /**
    * Displaying information about where a specific player is in the world including
@@ -110,4 +112,5 @@ public interface World extends ReadOnlyWorld {
    * @return the winner if there is one else null.
    */
   public String getWinner();
+
 }
