@@ -140,7 +140,7 @@ public class ConcreteWorld implements World {
         g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 20,
             space.getUpperLeftCol() * 20 + 20);
       }
-      File f = new File("res/output.png");
+      File f = new File("output.png");
       ImageIO.write(image, "png", f);
       out = ImageIO.read(f);
     } catch (IOException ie) {
@@ -151,7 +151,7 @@ public class ConcreteWorld implements World {
   @Override
   public BufferedImage cropImage() {
     try {
-      File f = new File("res/output.png");
+      File f = new File("output.png");
       ImageIO.write(image, "png", f);
       out = ImageIO.read(f);
     } catch (IOException e) {

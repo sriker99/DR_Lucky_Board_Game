@@ -23,7 +23,7 @@ public class WelcomeScreen extends JPanel {
     this.setLayout(new BorderLayout());
     serialVersionUid = 1L;
     JLabel thumb = new JLabel();
-    thumb.setIcon(new ImageIcon(new ImageIcon("res/Splash.jpg").getImage().getScaledInstance(500,
+    thumb.setIcon(new ImageIcon(new ImageIcon("Splash.jpg").getImage().getScaledInstance(500,
         500, Image.SCALE_DEFAULT)));
 
     this.add(thumb, BorderLayout.CENTER);
