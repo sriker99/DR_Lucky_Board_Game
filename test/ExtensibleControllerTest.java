@@ -20,7 +20,7 @@ public class ExtensibleControllerTest {
   private Features f;
 
   /**
-   * Initializes the mock models;
+   * Initializes the mock models.
    */
   @Before
   public void setUp() {
