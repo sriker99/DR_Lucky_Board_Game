@@ -3,9 +3,8 @@ import static org.junit.Assert.assertEquals;
 import game.controller.WorldController;
 import game.controller.commands.PickItem;
 import game.model.World;
-import java.io.Reader;
-import java.io.StringReader;
-import java.util.Scanner;
+import game.view.View;
+import mockmodel.ViewMock;
 import mockmodel.WorldMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,20 +15,20 @@ import org.junit.Test;
 public class PickItemTest {
   private World world;
   private StringBuilder log;
+  private View view;
 
   @Before
   public void setup() {
     log = new StringBuilder();
     world = new WorldMock(log, 1011);
+    view = new ViewMock(log, 1011);
   }
 
   @Test
   public void testPickItemTest() {
     StringBuffer out = new StringBuffer();
-    Reader in = new StringReader("Gun");
-    Scanner sc = new Scanner(in);
-    WorldController wc = new PickItem(sc, out);
-    wc.playGame(world);
+    WorldController wc = new PickItem("Gun");
+    wc.playGame(world, view);
     StringBuilder sb = new StringBuilder();
     sb.append("Inputs:\n"
         + " Item name:Gun\n"

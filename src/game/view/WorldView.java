@@ -162,11 +162,7 @@ public class WorldView extends JFrame implements View {
   public void changeToGameScreen() {
     gamePanel.updateClues();
     CardLayout c = (CardLayout) (cards.getLayout());
-    try {
-      world.cropImage();
-    } catch (IOException ioe) {
-      throw new IllegalArgumentException("Unable to read the file.");
-    }
+    world.cropImage();
     c.show(cards, this.gameCard);
     menuItem1.setEnabled(false);
     menuItem2.setEnabled(false);

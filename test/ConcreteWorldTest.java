@@ -89,13 +89,6 @@ public class ConcreteWorldTest {
     assertEquals(output.toString(), c1.displaySpaceInfo("Kitchen"));
   }
 
-  @Test
-  public void addComputerPlayer() {
-    c1.addComputerPlayer();
-    assertEquals(
-        "computer_0", c1.getTurn());
-  }
-
   @Test(expected = IllegalArgumentException.class)
   public void tryingToPickInvalidItem() {
     c1.addPlayer("ravi", "Kitchen");
@@ -111,7 +104,7 @@ public class ConcreteWorldTest {
   @Test
   public void moveToValidRoom() {
     c1.addPlayer("ravi", "Dining Hall");
-    c1.movePlayer("Kitchen");
+    c1.movePlayerComp("Kitchen");
     StringBuffer output = new StringBuffer();
     output.append("Currently player ravi is located at  Kitchen and not carrying any items.\n");
     assertEquals(output.toString(), c1.displayPlayerInfo(0));
@@ -125,13 +118,13 @@ public class ConcreteWorldTest {
   @Test(expected = IllegalArgumentException.class)
   public void tryingToMoveToNonNeighbour() {
     c1.addPlayer("ravi", "Kitchen");
-    c1.movePlayer("Armory");
+    c1.movePlayerComp("Armory");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void tryingToMoveToNull() {
     c1.addPlayer("ravi", "Kitchen");
-    c1.movePlayer(null);
+    c1.movePlayerComp(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -143,19 +136,19 @@ public class ConcreteWorldTest {
   @Test(expected = IllegalArgumentException.class)
   public void invalidMoveToRoom() {
     c1.addPlayer("ravi", "Kitchen");
-    c1.movePlayer("abc");
+    c1.movePlayerComp("abc");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void emptySpaceParameterToMove() {
     c1.addPlayer("ravi", "Kitchen");
-    c1.movePlayer("");
+    c1.movePlayerComp("");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void tryingToMoveToSameRoom() {
     c1.addPlayer("ravi", "Kitchen");
-    c1.movePlayer("Kitchen");
+    c1.movePlayerComp("Kitchen");
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -207,8 +200,8 @@ public class ConcreteWorldTest {
     c1.addPlayer("ravi", "Kitchen");
     c1.pickItem("Sharp Knife");
     c1.pickItem("Crepe Pan");
-    c1.movePlayer("Dining Hall");
-    c1.movePlayer("Armory");
+    c1.movePlayerComp("Dining Hall");
+    c1.movePlayerComp("Armory");
     c1.pickItem("Revolver");
     assertEquals("Currently player ravi is located at  Armory and carrying items "
         + "Sharp Knife,Crepe Pan,Revolver,.\n", c1.displayPlayerInfo(0));
@@ -219,10 +212,10 @@ public class ConcreteWorldTest {
     c1.addPlayer("ravi", "Kitchen");
     c1.pickItem("Sharp Knife");
     c1.pickItem("Crepe Pan");
-    c1.movePlayer("Dining Hall");
-    c1.movePlayer("Armory");
+    c1.movePlayerComp("Dining Hall");
+    c1.movePlayerComp("Armory");
     c1.pickItem("Revolver");
-    c1.movePlayer("Billiard Room");
+    c1.movePlayerComp("Billiard Room");
     c1.pickItem("Billiard Cue");
   }
 
@@ -230,7 +223,7 @@ public class ConcreteWorldTest {
   public void testingMultiplePlayers() {
     c1.addPlayer("ravi", "Kitchen");
     c1.addPlayer("teja", "Armory");
-    c1.movePlayer("Dining Hall");
+    c1.movePlayerComp("Dining Hall");
     StringBuffer output = new StringBuffer();
     output.append("Currently player ravi is located at  Dining Hall and not carrying any items.\n");
     assertEquals(output.toString(), c1.displayPlayerInfo(0));
@@ -253,7 +246,7 @@ public class ConcreteWorldTest {
     output.append(" Trophy Room with items [Duck Decoy, Monkey Hand] with players []\n");
     output.append(" Wine Cellar with items [Rat Poison, Piece of Rope] with players []\n");
     assertEquals(output.toString(), c1.lookAround());
-    c1.movePlayer("Dining Hall");
+    c1.movePlayerComp("Dining Hall");
     output = new StringBuffer();
     output.append(
         "Currently player teja is located at  Dining Hall and carrying items Revolver,.\n");
@@ -524,7 +517,7 @@ public class ConcreteWorldTest {
             + "Pet is present in the current room.\n"
             + "Its neighbours are [ Armory,  Dining Hall,  Trophy Room]\n",
         c1.displaySpaceInfo("Billiard Room"));
-    c1.movePlayer("Trophy Room");
+    c1.movePlayerComp("Trophy Room");
     assertEquals("Target name is  Doctor Lucky, health is 5, current location is 2\n"
         + "Player name is ravi, and its location is 18,  carrying items []\n", c1.displayClues());
     assertEquals("Space is Dining Hall with no items \n"
@@ -541,8 +534,8 @@ public class ConcreteWorldTest {
             + "Pet is present in the current room.\n"
             + "Its neighbours are [ Armory,  Dining Hall,  Foy,  Wine Cellar]\n",
         c1.displaySpaceInfo("Drawing Room"));
-    c1.movePlayer("Dining Hall");
-    c1.movePlayer("Kitchen");
+    c1.movePlayerComp("Dining Hall");
+    c1.movePlayerComp("Kitchen");
     c1.pickItem("Sharp Knife");
     c1.pickItem("Crepe Pan");
     c1.lookAround();
@@ -578,9 +571,9 @@ public class ConcreteWorldTest {
     c1.addPlayer("ravi", "Armory");
     c1.attack("");
     c1.pickItem("Revolver");
-    c1.movePlayer("Dining Hall");
+    c1.movePlayerComp("Dining Hall");
     c1.attack("Revolver");
-    c1.movePlayer("Kitchen");
+    c1.movePlayerComp("Kitchen");
     c1.pickItem("Sharp Knife");
     c1.lookAround();
     c1.lookAround();
@@ -593,9 +586,9 @@ public class ConcreteWorldTest {
     c1.addPlayer("ravi", "Armory");
     c1.attack("");
     c1.pickItem("Revolver");
-    c1.movePlayer("Dining Hall");
+    c1.movePlayerComp("Dining Hall");
     c1.attack("Revolver");
-    c1.movePlayer("Kitchen");
+    c1.movePlayerComp("Kitchen");
     assertEquals(true, c1.isGameOver());
     assertEquals(null, c1.getWinner());
   }
@@ -605,7 +598,7 @@ public class ConcreteWorldTest {
     c1.addPlayer("ravi", "Armory");
     c1.attack("");
     c1.pickItem("Revolver");
-    c1.movePlayer("Dining Hall");
+    c1.movePlayerComp("Dining Hall");
     c1.attack("Revolver");
     assertEquals(false, c1.isGameOver());
     assertEquals(null, c1.getWinner());

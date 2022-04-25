@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -52,11 +51,7 @@ public class GameScreen extends JPanel {
     itemsCombo = new JComboBox();
     sidePanel = new JPanel();
     sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
-    try {
-      icon = new ImageIcon(world.cropImage());
-    } catch (IOException ioe) {
-      throw new IllegalArgumentException("Unable to read the file.");
-    }
+    icon = new ImageIcon(world.cropImage());
     thumb = new JLabel();
     thumb.setIcon(icon);
     String description = world.displayClues();
@@ -88,11 +83,7 @@ public class GameScreen extends JPanel {
   public void updateClues() {
     String temp = world.displayClues();
     clues.setText("<html>" + temp.replaceAll("\n", "<br/>") + "</html>");
-    try {
-      thumb.setIcon(new ImageIcon(world.cropImage()));
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Unable to read the file");
-    }
+    thumb.setIcon(new ImageIcon(world.cropImage()));
   }
 
   /**

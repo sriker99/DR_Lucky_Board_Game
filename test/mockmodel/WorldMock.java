@@ -1,9 +1,7 @@
 package mockmodel;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 import game.model.World;
+import java.awt.image.BufferedImage;
 
 /**
  * This mock class implements world interface to mock the actions performed by
@@ -32,14 +30,6 @@ public class WorldMock implements World {
   }
 
   @Override
-  public String displaySpaceInfo(String space) {
-    StringBuffer res = new StringBuffer();
-    log.append(String.format("Input:\n" + "  Enter the player space name: %s\n", space));
-    res.append(String.format("display space info %d\n", uniqueCode));
-    return res.toString();
-  }
-
-  @Override
   public void addPlayer(String name, String spaceName) {
     log.append(
         String.format("adding player %s in space %s with %d\n", name, spaceName, uniqueCode));
@@ -49,12 +39,6 @@ public class WorldMock implements World {
   public void pickItem(String item) {
     log.append("Inputs:\n Item name:" + item);
     log.append(String.format("\n  picked item %d\n", uniqueCode));
-    gameOver = true;
-  }
-
-  @Override
-  public void movePlayer(String spaceName) {
-    log.append(String.format("Inputs:\n" + " Space Name:Kitchen\nmoved to space %d\n", uniqueCode));
     gameOver = true;
   }
 
@@ -74,11 +58,6 @@ public class WorldMock implements World {
     return res.toString();
   }
 
-  @Override
-  public String getTurn() {
-    String s = String.format("get turn %d\n", uniqueCode);
-    return s;
-  }
 
   @Override
   public void addComputerPlayer() {
@@ -153,7 +132,7 @@ public class WorldMock implements World {
   @Override
   public BufferedImage cropImage() {
     log.append("Get spaces method is invoked\n");
-    log.append(String.format("unique code %;d\n", uniqueCode));
+    log.append(String.format("unique code %d\n", uniqueCode));
     return null;
   }
 
@@ -161,13 +140,22 @@ public class WorldMock implements World {
   public String movePlayer(int x, int y) {
     log.append("move Player method is invoked\n");
     log.append(String.format("Inputs: x and y : %d %d \n", x, y));
-    return String.format("unique code %;d\n", uniqueCode);
+    return String.format("unique code %d\n", uniqueCode);
   }
 
   @Override
   public String getPlayerTurn() {
     log.append("get player turn method is invoked\n");
-    log.append(String.format("Inputs: x and y : %d %d \n", x, y));
-    return String.format("unique code %;d\n", uniqueCode);
+    return String.format("unique code %d\n", uniqueCode);
+  }
+
+  @Override
+  public String displaySpaceInfo(String s) {
+    return null;
+  }
+
+  @Override
+  public void movePlayerComp(String nextSpaceName) {
+
   }
 }

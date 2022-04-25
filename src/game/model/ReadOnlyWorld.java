@@ -1,7 +1,6 @@
 package game.model;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * This interfaces contains the method signatures for readonly that are accessed by the view.
@@ -48,5 +47,5 @@ public interface ReadOnlyWorld {
    *
    * @return a processed image
    */
-  public BufferedImage cropImage() throws IOException;
+  public BufferedImage cropImage();
 }

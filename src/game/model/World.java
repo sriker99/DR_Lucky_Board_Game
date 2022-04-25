@@ -90,4 +90,19 @@ public interface World extends ReadOnlyWorld {
    */
   public String getPlayerTurn();
 
+
+  /**
+   * Displays description of space.
+   *
+   * @param s space name
+   * @return description
+   */
+  public String displaySpaceInfo(String s);
+
+  /**
+   * moves player to the given space.
+   *
+   * @param nextSpaceName neext location to move.
+   */
+  public void movePlayerComp(String nextSpaceName);
 }

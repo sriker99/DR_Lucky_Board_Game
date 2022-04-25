@@ -542,7 +542,8 @@ public class ConcreteWorld implements World {
     return "Player moved";
   }
 
-  private void movePlayerComp(String nextSpaceName) {
+  @Override
+  public void movePlayerComp(String nextSpaceName) {
     if (nextSpaceName == null || "".equals(nextSpaceName.trim())) {
       throw new IllegalArgumentException("Space name shouldn't be empty.\n");
     } else {
@@ -573,8 +574,8 @@ public class ConcreteWorld implements World {
     }
   }
 
-
-  private String displaySpaceInfo(String s) {
+  @Override
+  public String displaySpaceInfo(String s) {
     if (s == null || "".equals(s.trim())) {
       throw new IllegalArgumentException("Space name shouldn't be empty.");
     }
