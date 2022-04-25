@@ -77,5 +77,5 @@ Currently there are no limitations in the project.
 [1] GeeksforGeeks. 2022. Depth First Search or DFS for a Graph - GeeksforGeeks. [online] Available
 at: <https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/> [Accessed 1 April 2022].
 
-
+[2] StackOverflow. 2022. Remove blank space in image JAVA - StackOverflow. [online] Available at: https://stackoverflow.com/questions/36811382/remove-blank-space-in-image-java [Accessed 24 April 2022].
 
