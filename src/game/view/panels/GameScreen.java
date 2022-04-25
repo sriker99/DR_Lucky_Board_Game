@@ -95,6 +95,11 @@ public class GameScreen extends JPanel {
     }
   }
 
+  /**
+   * Performs operations when certain keys are typed and clicked
+   *
+   * @param f is features object.
+   */
   public void setFeatures(Features f) {
     graphPanel.addMouseListener(new MouseListener() {
       @Override

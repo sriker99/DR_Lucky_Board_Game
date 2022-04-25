@@ -27,7 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class WorldView extends JFrame implements View {
 
-  private final long serialVersionUID;
+  private final long serialVersionUid;
   private final String welcomeCard;
   private final String playerConfigurationCard;
   private final String gameCard;
@@ -56,7 +56,7 @@ public class WorldView extends JFrame implements View {
     if (world == null) {
       throw new IllegalArgumentException("World object cannot be null");
     }
-    serialVersionUID = 1L;
+    serialVersionUid = 1L;
     welcomeCard = "WELCOMECARD";
     playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
     gameCard = "GAMECARD";
