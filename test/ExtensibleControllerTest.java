@@ -33,10 +33,10 @@ public class ExtensibleControllerTest {
   @Test
   public void startNewGameTest() {
     controller.execute(view);
-    assertEquals("set features method is invoked\n" +
-        "unique code 4000\n" +
-        "resetFocus method is invoked\n" +
-        "unique code 4000\n", sb.toString());
+    assertEquals("set features method is invoked\n"
+      +  "unique code 4000\n"
+      +  "resetFocus method is invoked\n"
+      +  "unique code 4000\n", sb.toString());
     controller.startGame();
     assertEquals(
         "set features method is invoked\n" +
