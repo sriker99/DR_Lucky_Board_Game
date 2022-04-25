@@ -27,10 +27,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class WorldView extends JFrame implements View {
 
-  private static final long serialVersionUID = 1L;
-  private final String welcomeCard = "WELCOMECARD";
-  private final String playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
-  private final String gameCard = "GAMECARD";
+  private final long serialVersionUID;
+  private final String welcomeCard;
+  private final String playerConfigurationCard;
+  private final String gameCard;
   private PlayerPanel addPlayers;
   private GameScreen gamePanel;
   private ReadOnlyWorld world;
@@ -56,6 +56,10 @@ public class WorldView extends JFrame implements View {
     if (world == null) {
       throw new IllegalArgumentException("World object cannot be null");
     }
+    serialVersionUID = 1L;
+    welcomeCard = "WELCOMECARD";
+    playerConfigurationCard = "PLAYERCONFIGURATIONCARD";
+    gameCard = "GAMECARD";
     menuBar = new JMenuBar();
     menu = new JMenu("Menu");
     menuBar.add(menu);
@@ -75,6 +79,7 @@ public class WorldView extends JFrame implements View {
     gamePanel = new GameScreen(this.world);
     cards.add(ws, welcomeCard);
     cards.add(addPlayers, playerConfigurationCard);
+    gamePanel.updateClues();
     cards.add(gamePanel, gameCard);
     this.add(cards);
     this.setSize(500, 500);
@@ -114,8 +119,7 @@ public class WorldView extends JFrame implements View {
     if (title == null || "".equals(title.trim()) || items.length == 0) {
       throw new IllegalArgumentException("Title and items shouldn't be empty");
     }
-    itemsCombo = new JComboBox<>(items);
-    JOptionPane.showMessageDialog(new JFrame(), itemsCombo, title, JOptionPane.QUESTION_MESSAGE);
+    gamePanel.showItemsDialog(title, items);
   }
 
   @Override
@@ -156,7 +160,13 @@ public class WorldView extends JFrame implements View {
 
   @Override
   public void changeToGameScreen() {
+    gamePanel.updateClues();
     CardLayout c = (CardLayout) (cards.getLayout());
+    try {
+      world.cropImage();
+    } catch (IOException ioe) {
+      throw new IllegalArgumentException("Unable to read the file.");
+    }
     c.show(cards, this.gameCard);
     menuItem1.setEnabled(false);
     menuItem2.setEnabled(false);
