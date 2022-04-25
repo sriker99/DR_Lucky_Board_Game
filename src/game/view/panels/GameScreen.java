@@ -87,7 +87,7 @@ public class GameScreen extends JPanel {
   }
 
   /**
-   * Performs operations when certain keys are typed and clicked
+   * Performs operations when certain keys are typed and clicked.
    *
    * @param f is features object.
    */
