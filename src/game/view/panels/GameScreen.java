@@ -13,7 +13,9 @@ import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -39,7 +41,7 @@ public class GameScreen extends JPanel {
    *
    * @param world is the read only world object.
    */
-  public GameScreen(ReadOnlyWorld world) throws IOException {
+  public GameScreen(ReadOnlyWorld world) {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
     }
@@ -47,16 +49,22 @@ public class GameScreen extends JPanel {
     serialVersionUid = 1L;
     Border border = new LineBorder(Color.RED, 4, true);
     this.setBorder(border);
+    itemsCombo = new JComboBox();
     sidePanel = new JPanel();
     sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.Y_AXIS));
-    icon = new ImageIcon(world.cropImage());
+    try {
+      icon = new ImageIcon(world.cropImage());
+    } catch (IOException ioe) {
+      throw new IllegalArgumentException("Unable to read the file.");
+    }
     thumb = new JLabel();
     thumb.setIcon(icon);
     String description = world.displayClues();
     clues = new JLabel(description);
     JLabel rules =
-        new JLabel("<html><b>CLUES</b><br/>" + "p to pick item from the space<br/>" +
-            "l to look around the player<br/>"
+        new JLabel("<html><b>CLUES</b><br/>" + "Click on the space to move the players<br/>"
+            + "p to pick item from the space<br/>"
+            + "l to look around the player<br/>"
             + "a to attack the target<br/>" + "m to move pet</html>");
     this.world = world;
     graphPanel = new JPanel();
@@ -71,6 +79,7 @@ public class GameScreen extends JPanel {
     rulesPanel.add(rules);
     sidePanel.add(rulesPanel);
     this.add(sidePanel);
+
   }
 
   /**
@@ -78,7 +87,7 @@ public class GameScreen extends JPanel {
    */
   public void updateClues() {
     String temp = world.displayClues();
-    clues.setText(temp);
+    clues.setText("<html>" + temp.replaceAll("\n", "<br/>") + "</html>");
     try {
       thumb.setIcon(new ImageIcon(world.cropImage()));
     } catch (IOException e) {
@@ -95,22 +104,18 @@ public class GameScreen extends JPanel {
 
       @Override
       public void mousePressed(MouseEvent e) {
-
       }
 
       @Override
       public void mouseReleased(MouseEvent e) {
-
       }
 
       @Override
       public void mouseEntered(MouseEvent e) {
-
       }
 
       @Override
       public void mouseExited(MouseEvent e) {
-
       }
     });
     this.addKeyListener(new KeyListener() {
@@ -160,5 +165,18 @@ public class GameScreen extends JPanel {
     this.requestFocus();
   }
 
+  /**
+   * Dialog box pops with items and title.
+   *
+   * @param title is the name of the dialog box
+   * @param items options in the dialog box.
+   */
+  public void showItemsDialog(String title, String[] items) {
+    if (title == null || "".equals(title.trim()) || items.length == 0) {
+      throw new IllegalArgumentException("Title and items shouldn't be empty");
+    }
+    itemsCombo = new JComboBox<>(items);
+    JOptionPane.showMessageDialog(new JFrame(), itemsCombo, title, JOptionPane.QUESTION_MESSAGE);
+  }
 }
 

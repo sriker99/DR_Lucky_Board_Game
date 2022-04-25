@@ -291,7 +291,9 @@ public class ConcreteWorld implements World {
   @Override
   public String displayClues() {
     StringBuffer info = new StringBuffer();
-    info.append(target.toString());
+    info.append("Target is present in "
+        + spaceList.get(target.getCurrentSpaceIndex()).getNameOfSpace() + " with health "
+        + target.getHealth() + "\n");
     if (playerCount > 0) {
       info.append(playersList.get(currentPlayerIndex % playerCount).toString());
       boolean flag = playersList.get(currentPlayerIndex % playerCount).getItems().size() > 0;

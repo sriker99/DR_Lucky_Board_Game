@@ -197,6 +197,7 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void pick(String item) {
+    System.out.println("method invoked");
     if (item == null || "".equals(item.trim())) {
       throw new IllegalArgumentException("Item shouldn't be empty");
     }
