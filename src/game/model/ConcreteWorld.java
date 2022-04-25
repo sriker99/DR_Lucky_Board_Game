@@ -157,7 +157,10 @@ public class ConcreteWorld implements World {
     } catch (IOException e) {
       throw new IllegalArgumentException("Unable to read the file.");
     }
-    int minY = 0, maxY = 0, minX = Integer.MAX_VALUE, maxX = 0;
+    int minY = 0;
+    int maxY = 0;
+    int minX = Integer.MAX_VALUE;
+    int maxX = 0;
     boolean isBlank;
     boolean minYisDefined = false;
     Raster raster = out.getRaster();
@@ -568,7 +571,8 @@ public class ConcreteWorld implements World {
     }
   }
 
-  public String displaySpaceInfo(String s) {
+
+  private String displaySpaceInfo(String s) {
     if (s == null || "".equals(s.trim())) {
       throw new IllegalArgumentException("Space name shouldn't be empty.");
     }

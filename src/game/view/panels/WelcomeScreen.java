@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  */
 public class WelcomeScreen extends JPanel {
 
-  private static final long serialVersionUID = 1L;
+  private final long serialVersionUid;
   private JButton startGame;
 
   /**
@@ -21,6 +21,7 @@ public class WelcomeScreen extends JPanel {
    */
   public WelcomeScreen() {
     this.setLayout(new BorderLayout());
+    serialVersionUid = 1L;
     JLabel thumb = new JLabel();
     thumb.setIcon(new ImageIcon(new ImageIcon("res/Splash.jpg").getImage().getScaledInstance(500,
         500, Image.SCALE_DEFAULT)));

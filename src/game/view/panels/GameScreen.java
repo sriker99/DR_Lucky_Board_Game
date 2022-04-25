@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
  * This class represents the game screen where game is played.
  */
 public class GameScreen extends JPanel {
-  private static final long serialVersionUID = 1L;
+  private final long serialVersionUid;
   private JPanel graphPanel;
   private JPanel cluesPanel;
   private JPanel sidePanel;
@@ -39,7 +39,7 @@ public class GameScreen extends JPanel {
       throw new IllegalArgumentException("Read only world object cannot be null");
     }
     this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
+    serialVersionUid = 1L;
     Border border = new LineBorder(Color.RED, 4, true);
     this.setBorder(border);
     sidePanel = new JPanel();

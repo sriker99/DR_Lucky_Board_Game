@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
  */
 public class PlayerPanel extends JPanel {
 
-  private final long serialVersionUID;
+  private final long serialVersionUid;
   private final String humanPlayerPanel;
   private final String computerPlayerPanel;
   private JPanel playerType;
@@ -42,7 +42,7 @@ public class PlayerPanel extends JPanel {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
     }
-    serialVersionUID = 1L;
+    serialVersionUid = 1L;
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     humanPlayerPanel = "HUMAN";
     computerPlayerPanel = "COMPUTER";
