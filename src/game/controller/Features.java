@@ -100,7 +100,6 @@ public interface Features {
    *
    * @param x coordinate on X-axis
    * @param y coordinate on Y-axis
-   * @return
    */
   void movePlayer(int x, int y);
 }

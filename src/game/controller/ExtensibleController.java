@@ -81,7 +81,7 @@ public class ExtensibleController implements Controller, Features {
     if (playerLocation == null) {
       view.showErrorMessage("Player location cannot be null");
     }
-    if (playerType.equals("COMPUTER")) {
+    if ("COMPUTER".equals(playerType)) {
       try {
         WorldController wc = new AddComputerPlayer();
         wc.playGame(model, view);
@@ -93,7 +93,7 @@ public class ExtensibleController implements Controller, Features {
       } catch (IllegalArgumentException ie) {
         view.showErrorMessage(ie.getMessage());
       }
-    } else if (playerType.equals("HUMAN")) {
+    } else if ("HUMAN".equals(playerType)) {
       try {
         WorldController wc = new AddPlayer(playerName, playerLocation);
         wc.playGame(model, view);

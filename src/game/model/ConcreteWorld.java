@@ -158,7 +158,8 @@ public class ConcreteWorld implements World {
       throw new IllegalArgumentException("Unable to read the file.");
     }
     int minY = 0, maxY = 0, minX = Integer.MAX_VALUE, maxX = 0;
-    boolean isBlank, minYIsDefined = false;
+    boolean isBlank;
+    boolean minYisDefined = false;
     Raster raster = out.getRaster();
 
     for (int y = 0; y < out.getHeight(); y++) {
@@ -177,9 +178,9 @@ public class ConcreteWorld implements World {
         }
       }
       if (!isBlank) {
-        if (!minYIsDefined) {
+        if (!minYisDefined) {
           minY = y;
-          minYIsDefined = true;
+          minYisDefined = true;
         } else {
           if (y > maxY) {
             maxY = y;
@@ -567,7 +568,6 @@ public class ConcreteWorld implements World {
     }
   }
 
-  @Override
   public String displaySpaceInfo(String s) {
     if (s == null || "".equals(s.trim())) {
       throw new IllegalArgumentException("Space name shouldn't be empty.");
@@ -686,11 +686,6 @@ public class ConcreteWorld implements World {
       info.append(".\n");
     }
     return info.toString();
-  }
-
-  @Override
-  public String getTurn() {
-    return playersList.get(currentPlayerIndex % playerCount).getPlayerName();
   }
 
   private void movePetDfs() {

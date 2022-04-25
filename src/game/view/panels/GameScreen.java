@@ -68,7 +68,7 @@ public class GameScreen extends JPanel {
   }
 
   /**
-   * Updates clues after every turn
+   * Updates clues after every turn.
    */
   public void updateClues() {
     String temp = world.displayClues();

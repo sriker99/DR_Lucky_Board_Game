@@ -15,9 +15,9 @@ import javax.swing.JTextArea;
  */
 public class PlayerPanel extends JPanel {
 
-  private static final long serialVersionUID = 1L;
-  private final static String humanPlayerPanel = "HUMAN";
-  private final static String computerPlayerPanel = "COMPUTER";
+  private final long serialVersionUID;
+  private final String humanPlayerPanel;
+  private final String computerPlayerPanel;
   private JPanel playerType;
   private JPanel humanPlayer;
   private JPanel humanPlayerLabels;
@@ -25,7 +25,7 @@ public class PlayerPanel extends JPanel {
   private JPanel buttonsPanel;
   private JLabel playerTypeLabel;
   private JComboBox<String> playerTypeComboBox;
-  private String[] playerTypeComboBoxItems = {humanPlayerPanel, computerPlayerPanel};
+  private String[] playerTypeComboBoxItems;
   private JLabel playerNameLabel;
   private JLabel playerLocationLabel;
   private JTextArea playerNameTextArea;
@@ -42,7 +42,11 @@ public class PlayerPanel extends JPanel {
     if (world == null) {
       throw new IllegalArgumentException("Read only world object cannot be null");
     }
+    serialVersionUID = 1L;
     this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    humanPlayerPanel = "HUMAN";
+    computerPlayerPanel = "COMPUTER";
+    playerTypeComboBoxItems = new String[] {humanPlayerPanel, computerPlayerPanel};
     playerType = new JPanel();
     playerTypeLabel = new JLabel("Player Type");
     playerTypeLabel.setFont(new Font("Arial", Font.PLAIN, 20));

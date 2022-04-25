@@ -18,13 +18,6 @@ public interface World extends ReadOnlyWorld {
    */
   String movePlayer(int x, int y);
 
-  /**
-   * It displays information of space like its neighbours and items.
-   *
-   * @param space name of the space
-   * @return the description of the space.
-   */
-  public String displaySpaceInfo(String space);
 
   /**
    * Add player to the world and players list.
@@ -41,15 +34,6 @@ public interface World extends ReadOnlyWorld {
    */
   public void pickItem(String item);
 
-
-  /**
-   * Displaying information about where a specific player is in the world including
-   * what spaces that can be seen from where they are.
-   *
-   * @return current space and neighbours.
-   */
-//  public String lookAround();
-
   /**
    * This method displays the description about a player.
    *
@@ -58,12 +42,6 @@ public interface World extends ReadOnlyWorld {
    */
   public String displayPlayerInfo(int i);
 
-  /**
-   * This method return the current player name.
-   *
-   * @return the name of current player.
-   */
-  public String getTurn();
 
   /**
    * Adds a computer player when player chooses.
@@ -90,13 +68,6 @@ public interface World extends ReadOnlyWorld {
    * @param itemName name of the item with which target to be attacked.
    */
   public void attack(String itemName);
-
-  /**
-   * Displays the clues to the player.
-   *
-   * @return the clues of the play.
-   */
-//  public String displayClues();
 
   /**
    * Checks whether the game is over.

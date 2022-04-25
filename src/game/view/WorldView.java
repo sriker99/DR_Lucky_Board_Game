@@ -197,6 +197,9 @@ public class WorldView extends JFrame implements View {
         JOptionPane.ERROR_MESSAGE);
   }
 
+  /**
+   * Changes to welcome screen when a new game starts.
+   */
   public void changeToWelcomeScreen() {
     CardLayout c = (CardLayout) (cards.getLayout());
     c.show(cards, this.welcomeCard);
