@@ -1,9 +1,13 @@
 package mockmodel;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 import game.model.World;
 
 /**
- * This mock class implements world interface to mock the actions performed by world class.
+ * This mock class implements world interface to mock the actions performed by
+ * world class.
  */
 public class WorldMock implements World {
   private final int uniqueCode;
@@ -27,12 +31,10 @@ public class WorldMock implements World {
     log.append(String.format("constructing world %d\n", uniqueCode));
   }
 
-
   @Override
   public String displaySpaceInfo(String space) {
     StringBuffer res = new StringBuffer();
-    log.append(String.format("Input:\n"
-        + "  Enter the player space name: %s\n", space));
+    log.append(String.format("Input:\n" + "  Enter the player space name: %s\n", space));
     res.append(String.format("display space info %d\n", uniqueCode));
     return res.toString();
   }
@@ -52,8 +54,7 @@ public class WorldMock implements World {
 
   @Override
   public void movePlayer(String spaceName) {
-    log.append(String.format("Inputs:\n"
-        + " Space Name:Kitchen\nmoved to space %d\n", uniqueCode));
+    log.append(String.format("Inputs:\n" + " Space Name:Kitchen\nmoved to space %d\n", uniqueCode));
     gameOver = true;
   }
 
@@ -120,5 +121,53 @@ public class WorldMock implements World {
   public String getWinner() {
     String s = String.format("Player %d\n", uniqueCode);
     return s;
+  }
+
+  @Override
+  public String[] getSpaces() {
+    log.append("Get spaces method is invoked\n");
+    String[] result;
+    result = new String[1];
+    result[1] = String.format("unique code %d\n", uniqueCode);
+    return result;
+  }
+
+  @Override
+  public String[] getPlayerItems() {
+    log.append("Get player items method is invoked\n");
+    String[] result;
+    result = new String[1];
+    result[1] = String.format("unique code %d\n", uniqueCode);
+    return result;
+  }
+
+  @Override
+  public String[] getSpaceItems() {
+    log.append("Get space items method is invoked\n");
+    String[] result;
+    result = new String[1];
+    result[1] = String.format("unique code %d\n", uniqueCode);
+    return result;
+  }
+
+  @Override
+  public BufferedImage cropImage() {
+    log.append("Get spaces method is invoked\n");
+    log.append(String.format("unique code %;d\n", uniqueCode));
+    return null;
+  }
+
+  @Override
+  public String movePlayer(int x, int y) {
+    log.append("move Player method is invoked\n");
+    log.append(String.format("Inputs: x and y : %d %d \n", x, y));
+    return String.format("unique code %;d\n", uniqueCode);
+  }
+
+  @Override
+  public String getPlayerTurn() {
+    log.append("get player turn method is invoked\n");
+    log.append(String.format("Inputs: x and y : %d %d \n", x, y));
+    return String.format("unique code %;d\n", uniqueCode);
   }
 }
