@@ -35,7 +35,7 @@ My project consits of following features:
 ### How to Run
 
 Command to run the jar file:
-java -jar jarFileName.jar argument1 argument2
+java -jar cs5010-final-project-ravisriker.jar argument1 argument2
 
 argumnent1 is the fileName of the layout file.
 argument2 is the total number of turns for a game.
