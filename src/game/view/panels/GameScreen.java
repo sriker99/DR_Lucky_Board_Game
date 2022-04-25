@@ -1,9 +1,14 @@
 package game.view.panels;
 
+import game.controller.Features;
 import game.model.ReadOnlyWorld;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -50,7 +55,8 @@ public class GameScreen extends JPanel {
     String description = world.displayClues();
     clues = new JLabel(description);
     JLabel rules =
-        new JLabel("<html>p to pick item from the space<br/>" + "l to look around the player<br/>"
+        new JLabel("<html><b>CLUES</b><br/>" + "p to pick item from the space<br/>" +
+            "l to look around the player<br/>"
             + "a to attack the target<br/>" + "m to move pet</html>");
     this.world = world;
     graphPanel = new JPanel();
@@ -80,9 +86,78 @@ public class GameScreen extends JPanel {
     }
   }
 
+  public void setFeatures(Features f) {
+    graphPanel.addMouseListener(new MouseListener() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        f.movePlayer(e.getX(), e.getY());
+      }
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent e) {
+
+      }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+
+      }
+    });
+    this.addKeyListener(new KeyListener() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == 'a') {
+          String[] itemOptions = world.getPlayerItems();
+          f.displayItemsDialog("Attack with item", itemOptions);
+          f.attack(String.valueOf(itemsCombo.getSelectedItem()));
+        } else if (e.getKeyChar() == 'l') {
+          f.displayLookAround();
+        } else if (e.getKeyChar() == 'p') {
+          if (world.getSpaceItems().length == 0) {
+            f.displayErrorDialog("Space has no items.");
+          } else {
+            String[] itemOptions = world.getSpaceItems();
+            f.displayItemsDialog("Pick the item", itemOptions);
+            f.pick(String.valueOf(itemsCombo.getSelectedItem()));
+          }
+        } else if (e.getKeyChar() == 'm') {
+          String[] itemOptions = world.getSpaces();
+          f.displayItemsDialog("Move the pet to location", itemOptions);
+          f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
+        }
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+      }
+    });
+  }
+
   @Override
   public void paintComponent(Graphics g) {
     Toolkit t = Toolkit.getDefaultToolkit();
+  }
+
+  /**
+   * Resets the focus for panel.
+   */
+  public void resetFocus() {
+    this.setFocusable(true);
+    this.requestFocus();
   }
 
 }

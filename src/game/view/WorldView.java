@@ -8,10 +8,6 @@ import game.view.panels.WelcomeScreen;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JComboBox;
@@ -91,8 +87,7 @@ public class WorldView extends JFrame implements View {
 
   @Override
   public void resetFocus() {
-    this.setFocusable(true);
-    this.requestFocus();
+    gamePanel.resetFocus();
   }
 
   @Override
@@ -102,67 +97,11 @@ public class WorldView extends JFrame implements View {
     }
     ws.setFeatures(f);
     addPlayers.setFeatures(f);
+    gamePanel.setFeatures(f);
     menuItem1.addActionListener(l -> f.startGame());
     menuItem2.addActionListener(l -> this.uploadFile(f));
     menuItem3.addActionListener(l -> f.exitProgram());
-    this.addMouseListener(new MouseListener() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        f.movePlayer(e.getX(), e.getY());
-      }
 
-      @Override
-      public void mousePressed(MouseEvent e) {
-
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent e) {
-
-      }
-
-      @Override
-      public void mouseEntered(MouseEvent e) {
-
-      }
-
-      @Override
-      public void mouseExited(MouseEvent e) {
-
-      }
-    });
-    this.addKeyListener(new KeyListener() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        if (e.getKeyChar() == 'a') {
-          String[] itemOptions = world.getPlayerItems();
-          f.displayItemsDialog("Attack with item", itemOptions);
-          f.attack(String.valueOf(itemsCombo.getSelectedItem()));
-        } else if (e.getKeyChar() == 'l') {
-          f.displayLookAround();
-        } else if (e.getKeyChar() == 'p') {
-          if (world.getSpaceItems().length == 0) {
-            f.displayErrorDialog("Space has no items.");
-          } else {
-            String[] itemOptions = world.getSpaceItems();
-            f.displayItemsDialog("Pick the item", itemOptions);
-            f.pick(String.valueOf(itemsCombo.getSelectedItem()));
-          }
-        } else if (e.getKeyChar() == 'm') {
-          String[] itemOptions = world.getSpaces();
-          f.displayItemsDialog("Move the pet to location", itemOptions);
-          f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
-        }
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-      }
-    });
   }
 
   /**
@@ -223,6 +162,7 @@ public class WorldView extends JFrame implements View {
     menuItem2.setEnabled(false);
     this.setSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
     this.setLocation(0, 0);
+    gamePanel.resetFocus();
   }
 
   /**
