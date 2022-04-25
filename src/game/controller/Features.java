@@ -1,7 +1,5 @@
 package game.controller;
 
-import java.io.IOException;
-
 /**
  * This interface represents a set of features that the program offers. Each
  * feature is exposed as a function in this interface. This function is used
@@ -101,6 +99,7 @@ public interface Features {
    * moving player in the world.
    * @param x coordinate on X-axis
    * @param y coordinate on Y-axis
+   * @return
    */
   void movePlayer(int x, int y);
 }

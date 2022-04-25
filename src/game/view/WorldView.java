@@ -123,6 +123,7 @@ public class WorldView extends JFrame implements View {
     menuItem1.addActionListener(l -> f.startGame());
     menuItem2.addActionListener(l -> this.uploadFile(f));
     menuItem3.addActionListener(l -> f.exitProgram());
+//    gamePanel.setFeatures(f,String.valueOf(itemsCombo.getSelectedItem()));
     this.addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {

@@ -17,7 +17,7 @@ public interface World extends ReadOnlyWorld {
    * @param x is the x coordinate.
    * @param y is the y coordinate.
    */
-  void movePlayer(int x, int y);
+  String movePlayer(int x, int y);
 
   /**
    * It displays information of space like its neighbours and items.

@@ -1,5 +1,6 @@
 package game.view.panels;
 
+import game.controller.Features;
 import game.model.ReadOnlyWorld;
 
 import java.awt.BorderLayout;
@@ -8,10 +9,17 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -30,7 +38,7 @@ public class GameScreen extends JPanel {
   private JLabel clues;
   private ImageIcon icon;
   private JLabel thumb;
-
+  private JComboBox itemsCombo;
   /**
    * This is a constructs initialises the game panel.
    *
@@ -51,10 +59,8 @@ public class GameScreen extends JPanel {
     thumb.setIcon(icon);
     String description = world.displayClues();
     clues = new JLabel(description);
-    JLabel rules = new JLabel("<html>Enter 1 to move the player<br/>"
-        + "p to pick item from the space<br/>" + "l to look around the player<br/>"
-        + "4 to display player information<br/>" + "5 to space information<br/>"
-        + "6 to get world map<br/>" + "a to attack the target<br/>" + "m to move pet</html>");
+    JLabel rules = new JLabel("<html>p to pick item from the space<br/>" + "l to look around the player<br/>"
+        + "a to attack the target<br/>" + "m to move pet</html>");
     this.world = world;
     graphPanel = new JPanel();
     cluesPanel = new JPanel();
@@ -84,4 +90,6 @@ public class GameScreen extends JPanel {
   public void paintComponent(Graphics g) {
     Toolkit t = Toolkit.getDefaultToolkit();
   }
+
 }
+

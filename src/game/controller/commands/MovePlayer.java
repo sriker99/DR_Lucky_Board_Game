@@ -31,7 +31,8 @@ public class MovePlayer implements WorldController {
         throw new IllegalArgumentException("Model and view cannot be null");
       }
       try {
-        w.movePlayer(x, y);
+        String res=w.movePlayer(x, y);
+        view.showSuccessMessage("Player Status",res);
     } catch (IllegalArgumentException ise) {
       view.showErrorMessage(ise.getMessage());
   }

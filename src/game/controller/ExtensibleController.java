@@ -276,7 +276,7 @@ public class ExtensibleController implements Controller, Features {
            + "the game"));
      else
        view.showSuccessMessage("GAME IS OVER",String.format("Turns exhausted.Dr Lucky won the game"));
+     this.exitProgram();
    }
-   this.exitProgram();
  }
 }

@@ -119,6 +119,9 @@ public class ConcreteWorld implements World {
     this.winner = null;
     source = 0;
     index = 0;
+    for (int i = 0; i < playerCount; ++i) {
+      adj[i] = new LinkedList();
+    }
     traversal = new ArrayList<>();
     movePetTraversal();
   }
@@ -140,9 +143,6 @@ public class ConcreteWorld implements World {
       File f = new File("res/output.png");
       ImageIO.write(image, "png", f);
       out = ImageIO.read(f);
-//      BufferedImage crop = null;
-//      crop = this.cropImage();
-//      ImageIO.write(crop, "png", f);
     } catch (IOException ie) {
       throw new IllegalArgumentException("Unable to write the image into file.");
     }
@@ -186,12 +186,6 @@ public class ConcreteWorld implements World {
     }
 
     BufferedImage modifiedImg=out;
-//    try{
-//      modifiedImg=ImageIO.read(ClassLoader.getSystemResource("output.png"));
-//    }catch(IOException ioe){
-//      throw new IllegalArgumentException("Can't read file.");
-////      System.out.println("exception");
-//    }
     graphicsObj=modifiedImg.getGraphics();
     int x1=0;
     int x2=0;
@@ -211,7 +205,6 @@ public class ConcreteWorld implements World {
       x2=s.getLowerRightRow();
       y1=s.getUpperLeftCol();
       y2=s.getLowerRightCol();
-//      System.out.println(x1+" "+" "+x2+" "+y1+" "+y2);
       if(playersList.indexOf(p)==0)
       graphicsObj.setColor(Color.YELLOW);
       else if(playersList.indexOf(p)==1)
@@ -232,10 +225,11 @@ public class ConcreteWorld implements World {
         graphicsObj.setColor(Color.CYAN);
       else if(playersList.indexOf(p)==9)
         graphicsObj.setColor(Color.GRAY);
+      p.setX(x1+4+(playersList.indexOf(p)*10));
+      p.setY((y1+1));
+      System.out.println("player pos"+p.getX()+" "+p.getY());
       graphicsObj.fillOval((x1*20)+60+(playersList.indexOf(p)*10),(y1*20)+20,10,10);
     }
-//    File f = new File("res/modified.png");
-//    ImageIO.write(modifiedImg, "png", f);
     return modifiedImg.getSubimage(minX, minY, maxX - minX + 1, maxY - minY + 1);
   }
 
@@ -517,9 +511,14 @@ public class ConcreteWorld implements World {
   }
 
   @Override
-  public void movePlayer(int y,int x) {
+  public String movePlayer(int y,int x) {
     x=(x/20)-3;
     y=y/20;
+    Space currentSpace=spaceList.get(playersList.get(currentPlayerIndex).getCurrentSpaceIndex());
+      if (x >= currentSpace.getUpperLeftCol() && x <= currentSpace.getLowerRightCol() +1
+          && y >= currentSpace.getUpperLeftRow() &&  y<= currentSpace.getLowerRightRow()){
+        return displayPlayerInfo(currentPlayerIndex);
+    }
     System.out.println(x+"  "+y);
     String spaceName="";
     for(Space s:spaceList){
@@ -537,6 +536,7 @@ public class ConcreteWorld implements World {
       throw new IllegalArgumentException("Invalid click.");
     }
     movePlayerComp(spaceName);
+    return "Player moved";
   }
 
   private void movePlayerComp(String nextSpaceName) {
@@ -778,7 +778,9 @@ public class ConcreteWorld implements World {
 
   @Override
   public String getPlayerTurn(){
+    if(playerCount>0)
     return playersList.get(this.currentPlayerIndex%playerCount).getPlayerType();
+    else return "";
   }
 
 }
