@@ -35,6 +35,5 @@ public class AddPlayer implements WorldController {
       throw new IllegalArgumentException("Model and view cannot be null");
     }
     w.addPlayer(name, location);
-
   }
 }

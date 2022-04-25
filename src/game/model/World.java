@@ -1,7 +1,5 @@
 package game.model;
 
-import java.awt.image.BufferedImage;
-
 /**
  * This interfaces declares method signatures for constructing a World.
  */
@@ -14,6 +12,7 @@ public interface World extends ReadOnlyWorld {
 
   /**
    * This method moves the player to the position where user clicked.
+   *
    * @param x is the x coordinate.
    * @param y is the y coordinate.
    */
@@ -115,6 +114,7 @@ public interface World extends ReadOnlyWorld {
 
   /**
    * Finds the player turn.
+   *
    * @return type of player who has to play.
    */
   public String getPlayerTurn();

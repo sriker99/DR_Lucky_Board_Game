@@ -187,8 +187,8 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model, view);
     view.updateClues();
     endTheGame();
-    while(model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()){
-      view.showSuccessMessage("Computer played its turn.",model.checkComputerPlayer());
+    while (model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()) {
+      view.showSuccessMessage("Computer played its turn.", model.checkComputerPlayer());
       view.updateClues();
     }
     endTheGame();
@@ -204,8 +204,8 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model, view);
     view.updateClues();
     endTheGame();
-    while(model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()){
-      view.showSuccessMessage("Computer played its turn.",model.checkComputerPlayer());
+    while (model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()) {
+      view.showSuccessMessage("Computer played its turn.", model.checkComputerPlayer());
       view.updateClues();
     }
     endTheGame();
@@ -220,8 +220,8 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model, view);
     view.updateClues();
     endTheGame();
-    while(model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()){
-      view.showSuccessMessage("Computer played its turn.",model.checkComputerPlayer());
+    while (model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()) {
+      view.showSuccessMessage("Computer played its turn.", model.checkComputerPlayer());
       view.updateClues();
     }
     endTheGame();
@@ -229,12 +229,12 @@ public class ExtensibleController implements Controller, Features {
 
   @Override
   public void movePlayer(int x, int y) {
-    WorldController wc = new MovePlayer(x,y);
+    WorldController wc = new MovePlayer(x, y);
     wc.playGame(model, view);
     view.updateClues();
     endTheGame();
-    while(model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()){
-      view.showSuccessMessage("Computer played its turn.",model.checkComputerPlayer());
+    while (model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()) {
+      view.showSuccessMessage("Computer played its turn.", model.checkComputerPlayer());
       view.updateClues();
     }
     endTheGame();
@@ -262,21 +262,24 @@ public class ExtensibleController implements Controller, Features {
     wc.playGame(model, view);
     view.updateClues();
     endTheGame();
-    while(model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()){
-      view.showSuccessMessage("Computer played its turn.",model.checkComputerPlayer());
+    while (model.getPlayerTurn().equals("COMPUTER") && !model.isGameOver()) {
+      view.showSuccessMessage("Computer played its turn.", model.checkComputerPlayer());
       view.updateClues();
     }
     endTheGame();
   }
 
- private void endTheGame(){
-   if(model.isGameOver()){
-     if(model.getWinner()!=null)
-       view.showSuccessMessage("GAME IS OVER", String.format("Player " + model.getWinner() + " won "
-           + "the game"));
-     else
-       view.showSuccessMessage("GAME IS OVER",String.format("Turns exhausted.Dr Lucky won the game"));
-     this.exitProgram();
-   }
- }
+  private void endTheGame() {
+    if (model.isGameOver()) {
+      if (model.getWinner() != null) {
+        view.showSuccessMessage("GAME IS OVER",
+            String.format("Player " + model.getWinner() + " won "
+                + "the game"));
+      } else {
+        view.showSuccessMessage("GAME IS OVER",
+            String.format("Turns exhausted.Dr Lucky won the game"));
+      }
+      this.exitProgram();
+    }
+  }
 }

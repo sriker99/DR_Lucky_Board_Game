@@ -16,6 +16,7 @@ public interface ReadOnlyWorld {
 
   /**
    * Inserts players and target on the map.
+   *
    * @return a processed image
    */
   public BufferedImage cropImage() throws IOException;

@@ -38,8 +38,8 @@ public class PlayerImpl implements Player {
     this.playerIndex = playerIndex + 1;
     this.itemLimit = 3;
     this.userType = userType;
-    this.x=0;
-    this.y=0;
+    this.x = 0;
+    this.y = 0;
   }
 
 
@@ -71,19 +71,19 @@ public class PlayerImpl implements Player {
   }
 
   @Override
+  public void setX(int x) {
+    this.x = x;
+
+  }
+
+  @Override
   public int getY() {
     return y;
   }
 
   @Override
-  public void setX(int x) {
-    this.x=x;
-
-  }
-
-  @Override
   public void setY(int y) {
-     this.y=y;
+    this.y = y;
   }
 
   @Override

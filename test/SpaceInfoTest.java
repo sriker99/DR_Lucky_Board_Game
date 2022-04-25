@@ -1,7 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
 import game.controller.WorldController;
-import game.controller.commands.SpaceInfo;
 import game.model.World;
 import java.io.Reader;
 import java.io.StringReader;

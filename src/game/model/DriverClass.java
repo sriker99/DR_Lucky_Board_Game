@@ -25,7 +25,6 @@ public class DriverClass {
       View view = new WorldView("Doctor Lucky", model);
       c.execute(view);
     } catch (IOException ioe) {
-      System.out.println(ioe.getMessage());
       System.exit(1);
     }
   }

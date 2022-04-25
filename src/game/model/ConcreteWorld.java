@@ -62,7 +62,7 @@ public class ConcreteWorld implements World {
       throw new IllegalArgumentException("File and random number shouldn't be empty. "
           + "Number of turns can't be negative or zero.");
     }
-    out=null;
+    out = null;
     sequence = new ArrayList<String>();
     neighboursList = new ArrayList<String>();
     spaceList = new ArrayList<Space>();
@@ -134,8 +134,8 @@ public class ConcreteWorld implements World {
       g.setColor(Color.WHITE);
       for (Space space : spaceList) {
         g.drawRect(space.getUpperLeftRow() * 20, space.getUpperLeftCol() * 20,
-            (space.getLowerRightRow() - space.getUpperLeftRow()+1) * 20 ,
-            (space.getLowerRightCol()  - space.getUpperLeftCol()+1) * 20);
+            (space.getLowerRightRow() - space.getUpperLeftRow() + 1) * 20,
+            (space.getLowerRightCol() - space.getUpperLeftCol() + 1) * 20);
         g.setFont(new Font("TimesRoman", Font.ITALIC, 14));
         g.drawString(space.getNameOfSpace(), space.getUpperLeftRow() * 20 + 20,
             space.getUpperLeftCol() * 20 + 20);
@@ -149,7 +149,7 @@ public class ConcreteWorld implements World {
   }
 
   @Override
-  public BufferedImage cropImage(){
+  public BufferedImage cropImage() {
     try {
       File f = new File("res/output.png");
       ImageIO.write(image, "png", f);
@@ -168,10 +168,12 @@ public class ConcreteWorld implements World {
         // for better performance
         if (raster.getPixel(x, y, (int[]) null)[2] != 0) {
           isBlank = false;
-          if (x < minX)
+          if (x < minX) {
             minX = x;
-          if (x > maxX)
+          }
+          if (x > maxX) {
             maxX = x;
+          }
         }
       }
       if (!isBlank) {
@@ -179,56 +181,56 @@ public class ConcreteWorld implements World {
           minY = y;
           minYIsDefined = true;
         } else {
-          if (y > maxY)
+          if (y > maxY) {
             maxY = y;
+          }
         }
       }
     }
 
-    BufferedImage modifiedImg=out;
-    graphicsObj=modifiedImg.getGraphics();
-    int x1=0;
-    int x2=0;
-    int y1=0;
-    int y2=0;
-    Space s=spaceList.get(target.getCurrentSpaceIndex());
-    x1=s.getUpperLeftRow();
-    x2=s.getLowerRightRow();
-    y1=s.getUpperLeftCol();
-    y2=s.getLowerRightCol();
-    System.out.println(x1+" "+" "+x2+" "+y1+" "+y2);
+    BufferedImage modifiedImg = out;
+    graphicsObj = modifiedImg.getGraphics();
+    int x1 = 0;
+    int x2 = 0;
+    int y1 = 0;
+    int y2 = 0;
+    Space s = spaceList.get(target.getCurrentSpaceIndex());
+    x1 = s.getUpperLeftRow();
+    x2 = s.getLowerRightRow();
+    y1 = s.getUpperLeftCol();
+    y2 = s.getLowerRightCol();
     graphicsObj.setColor(Color.WHITE);
-    graphicsObj.drawOval(((x1)*20)+60,((y1)*20)+20,10,10);
-    for(Player p:playersList){
-     s=spaceList.get(p.getCurrentSpaceIndex());
-      x1=s.getUpperLeftRow();
-      x2=s.getLowerRightRow();
-      y1=s.getUpperLeftCol();
-      y2=s.getLowerRightCol();
-      if(playersList.indexOf(p)==0)
-      graphicsObj.setColor(Color.YELLOW);
-      else if(playersList.indexOf(p)==1)
+    graphicsObj.drawOval(((x1) * 20) + 60, ((y1) * 20) + 20, 10, 10);
+    for (Player p : playersList) {
+      s = spaceList.get(p.getCurrentSpaceIndex());
+      x1 = s.getUpperLeftRow();
+      x2 = s.getLowerRightRow();
+      y1 = s.getUpperLeftCol();
+      y2 = s.getLowerRightCol();
+      if (playersList.indexOf(p) == 0) {
+        graphicsObj.setColor(Color.YELLOW);
+      } else if (playersList.indexOf(p) == 1) {
         graphicsObj.setColor(Color.BLUE);
-      else if(playersList.indexOf(p)==2)
+      } else if (playersList.indexOf(p) == 2) {
         graphicsObj.setColor(Color.GREEN);
-      else if(playersList.indexOf(p)==3)
+      } else if (playersList.indexOf(p) == 3) {
         graphicsObj.setColor(Color.ORANGE);
-      else if(playersList.indexOf(p)==4)
+      } else if (playersList.indexOf(p) == 4) {
         graphicsObj.setColor(Color.LIGHT_GRAY);
-      else if(playersList.indexOf(p)==5)
+      } else if (playersList.indexOf(p) == 5) {
         graphicsObj.setColor(Color.PINK);
-      else if(playersList.indexOf(p)==6)
+      } else if (playersList.indexOf(p) == 6) {
         graphicsObj.setColor(Color.RED);
-      else if(playersList.indexOf(p)==7)
+      } else if (playersList.indexOf(p) == 7) {
         graphicsObj.setColor(Color.MAGENTA);
-      else if(playersList.indexOf(p)==8)
+      } else if (playersList.indexOf(p) == 8) {
         graphicsObj.setColor(Color.CYAN);
-      else if(playersList.indexOf(p)==9)
+      } else if (playersList.indexOf(p) == 9) {
         graphicsObj.setColor(Color.GRAY);
-      p.setX(x1+4+(playersList.indexOf(p)*10));
-      p.setY((y1+1));
-      System.out.println("player pos"+p.getX()+" "+p.getY());
-      graphicsObj.fillOval((x1*20)+60+(playersList.indexOf(p)*10),(y1*20)+20,10,10);
+      }
+      p.setX(x1 + 4 + (playersList.indexOf(p) * 10));
+      p.setY((y1 + 1));
+      graphicsObj.fillOval((x1 * 20) + 60 + (playersList.indexOf(p) * 10), (y1 * 20) + 20, 10, 10);
     }
     return modifiedImg.getSubimage(minX, minY, maxX - minX + 1, maxY - minY + 1);
   }
@@ -359,7 +361,7 @@ public class ConcreteWorld implements World {
         pickItem(spaceList.get(p.getCurrentSpaceIndex()).getItems().get(0));
       }
     }
-    if(playersList.get(currentPlayerIndex%playerCount).getPlayerType().equals("COMPUTER")){
+    if (playersList.get(currentPlayerIndex % playerCount).getPlayerType().equals("COMPUTER")) {
       return checkComputerPlayer();
     }
     return info.toString();
@@ -511,28 +513,23 @@ public class ConcreteWorld implements World {
   }
 
   @Override
-  public String movePlayer(int y,int x) {
-    x=(x/20)-3;
-    y=y/20;
-    Space currentSpace=spaceList.get(playersList.get(currentPlayerIndex).getCurrentSpaceIndex());
-      if (x >= currentSpace.getUpperLeftCol() && x <= currentSpace.getLowerRightCol() +1
-          && y >= currentSpace.getUpperLeftRow() &&  y<= currentSpace.getLowerRightRow()){
-        return displayPlayerInfo(currentPlayerIndex);
+  public String movePlayer(int y, int x) {
+    x = (x / 20) - 3;
+    y = y / 20;
+    Space currentSpace = spaceList.get(playersList.get(currentPlayerIndex).getCurrentSpaceIndex());
+    if (x >= currentSpace.getUpperLeftCol() && x <= currentSpace.getLowerRightCol() + 1
+        && y >= currentSpace.getUpperLeftRow() && y <= currentSpace.getLowerRightRow()) {
+      return displayPlayerInfo(currentPlayerIndex);
     }
-    System.out.println(x+"  "+y);
-    String spaceName="";
-    for(Space s:spaceList){
-        if (x >= s.getUpperLeftCol() && x <= s.getLowerRightCol() +1
-            && y >= s.getUpperLeftRow() &&  y<= s.getLowerRightRow()) {
-          spaceName = s.getNameOfSpace();
-          System.out.println("location"+s.getUpperLeftCol()+" "+s.getLowerRightCol()+" "+
-              s.getUpperLeftRow()+" "+s.getLowerRightRow());
-          System.out.println("Click "+x+" "+y);
-          break;
-        }
+    String spaceName = "";
+    for (Space s : spaceList) {
+      if (x >= s.getUpperLeftCol() && x <= s.getLowerRightCol() + 1
+          && y >= s.getUpperLeftRow() && y <= s.getLowerRightRow()) {
+        spaceName = s.getNameOfSpace();
+        break;
+      }
     }
-    System.out.println(spaceName);
-    if("".equals(spaceName.trim())){
+    if ("".equals(spaceName.trim())) {
       throw new IllegalArgumentException("Invalid click.");
     }
     movePlayerComp(spaceName);
@@ -777,10 +774,12 @@ public class ConcreteWorld implements World {
   }
 
   @Override
-  public String getPlayerTurn(){
-    if(playerCount>0)
-    return playersList.get(this.currentPlayerIndex%playerCount).getPlayerType();
-    else return "";
+  public String getPlayerTurn() {
+    if (playerCount > 0) {
+      return playersList.get(this.currentPlayerIndex % playerCount).getPlayerType();
+    } else {
+      return "";
+    }
   }
 
 }

@@ -32,7 +32,7 @@ public interface Features {
    *
    * @param item with which target should be attacked.
    */
-  void attack(String item) ;
+  void attack(String item);
 
   /**
    * Displays the item dialog to choose an item.
@@ -93,10 +93,11 @@ public interface Features {
    *
    * @param location where pet should be moved.
    */
-  void movePet(String location) ;
+  void movePet(String location);
 
   /**
    * moving player in the world.
+   *
    * @param x coordinate on X-axis
    * @param y coordinate on Y-axis
    * @return

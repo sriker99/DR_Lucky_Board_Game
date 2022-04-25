@@ -80,24 +80,28 @@ public interface Player {
 
   /**
    * This method accesses the x coordinate.
+   *
    * @return x value
    */
   int getX();
 
   /**
-   * This method accesses the y coordinate.
-   * @return y value
-   */
-  int getY();
-
-  /**
    * This method sets x value.
+   *
    * @param x value
    */
   void setX(int x);
 
   /**
+   * This method accesses the y coordinate.
+   *
+   * @return y value
+   */
+  int getY();
+
+  /**
    * This method sets y value.
+   *
    * @param y value.
    */
   void setY(int y);

@@ -6,6 +6,8 @@ import game.view.panels.GameScreen;
 import game.view.panels.PlayerPanel;
 import game.view.panels.WelcomeScreen;
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -19,26 +21,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.File;
-
-import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import javax.swing.JFileChooser;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import game.view.panels.GameScreen;
-
-import game.controller.Features;
-import game.model.ReadOnlyWorld;
-import game.view.panels.PlayerPanel;
-
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -123,11 +105,10 @@ public class WorldView extends JFrame implements View {
     menuItem1.addActionListener(l -> f.startGame());
     menuItem2.addActionListener(l -> this.uploadFile(f));
     menuItem3.addActionListener(l -> f.exitProgram());
-//    gamePanel.setFeatures(f,String.valueOf(itemsCombo.getSelectedItem()));
     this.addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        f.movePlayer(e.getX(),e.getY());
+        f.movePlayer(e.getX(), e.getY());
       }
 
       @Override
@@ -156,11 +137,10 @@ public class WorldView extends JFrame implements View {
         if (e.getKeyChar() == 'a') {
           String[] itemOptions = world.getPlayerItems();
           f.displayItemsDialog("Attack with item", itemOptions);
-            f.attack(String.valueOf(itemsCombo.getSelectedItem()));
+          f.attack(String.valueOf(itemsCombo.getSelectedItem()));
         } else if (e.getKeyChar() == 'l') {
-            f.displayLookAround();
-          }
-        else if (e.getKeyChar() == 'p') {
+          f.displayLookAround();
+        } else if (e.getKeyChar() == 'p') {
           if (world.getSpaceItems().length == 0) {
             f.displayErrorDialog("Space has no items.");
           } else {
@@ -171,7 +151,7 @@ public class WorldView extends JFrame implements View {
         } else if (e.getKeyChar() == 'm') {
           String[] itemOptions = world.getSpaces();
           f.displayItemsDialog("Move the pet to location", itemOptions);
-            f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
+          f.movePet(String.valueOf(itemsCombo.getSelectedItem()));
         }
       }
 
@@ -185,7 +165,16 @@ public class WorldView extends JFrame implements View {
     });
   }
 
+  /**
+   * Dialog box pops with items and title.
+   *
+   * @param title is the name of the dialog box
+   * @param items options in the dialog box.
+   */
   public void showItemsDialog(String title, String[] items) {
+    if (title == null || "".equals(title.trim()) || items.length == 0) {
+      throw new IllegalArgumentException("Title and items shouldn't be empty");
+    }
     itemsCombo = new JComboBox<>(items);
     JOptionPane.showMessageDialog(new JFrame(), itemsCombo, title, JOptionPane.QUESTION_MESSAGE);
   }
