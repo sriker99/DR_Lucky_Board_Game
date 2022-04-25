@@ -2,9 +2,9 @@
 
 This repo represents the coursework for CS 5010, the Fall 2022 Edition!
 
-**Name:** put your full name here
+**Name:** Ravitheja Dandi and Sai Sriker Reddy Vootukuri
 
-**Email:** put your Northeastern email address here
+**Email:**  dandi.r@northeastern.edu, vootukuri.s@northeastern.edu
 
 **Preferred Name:** put your preferred name here (how shall we address you)
 
